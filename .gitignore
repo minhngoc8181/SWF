@@ -1,0 +1,20 @@
+# Build artefacts
+bin/
+obj/
+**/bin/
+**/obj/
+
+# User-specific files
+*.user
+*.suo
+*.rsuser
+
+# IDE directories
+.vs/
+.idea/
+.vscode/
+
+# Generated files
+TestResult*/
+.DS_Store
+Thumbs.db

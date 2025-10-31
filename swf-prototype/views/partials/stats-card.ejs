@@ -1,0 +1,15 @@
+<!-- Stats Card Component -->
+<div class="stat-card">
+    <div class="stat-icon" style="background: <%= gradient %>;">
+        <span><%= icon %></span>
+    </div>
+    <div class="stat-content">
+        <h3><%= typeof value === 'number' ? value.toLocaleString() : value %></h3>
+        <p><%= label %></p>
+        <% if (typeof trend !== 'undefined' && trend) { %>
+        <div class="stat-trend <%= trend.direction || '' %>">
+            <span><%= trend.icon || '📈' %></span> <%= trend.text %>
+        </div>
+        <% } %>
+    </div>
+</div>

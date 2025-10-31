@@ -1,0 +1,387 @@
+<!-- Page Header -->
+<%- include('../partials/page-header', { 
+    icon: '📊', 
+    title: 'Báo Cáo Học Tập',
+    description: 'Theo dõi tiến độ và thành tích của con bạn'
+}) %>
+
+<!-- Children Selector -->
+<div class="children-tabs">
+    <% children.forEach((child, index) => { %>
+    <button class="child-tab <%= index === 0 ? 'active' : '' %>" onclick="showChildReport(<%= child.id %>)">
+        <img src="<%= child.avatar %>" alt="<%= child.name %>">
+        <span><%= child.name %></span>
+    </button>
+    <% }); %>
+</div>
+
+<!-- Stats Grid -->
+<div class="stats-grid" style="margin-top: 2rem;">
+    <%- include('../partials/stats-card', { 
+        icon: '🎯', 
+        gradient: 'linear-gradient(135deg, #667eea, #764ba2)',
+        value: 1250,
+        label: 'Tổng Điểm XP',
+        trend: { icon: '↗', text: '+245 tuần này', direction: 'up' }
+    }) %>
+    
+    <%- include('../partials/stats-card', { 
+        icon: '📝', 
+        gradient: 'linear-gradient(135deg, #43e97b, #38f9d7)',
+        value: 24,
+        label: 'Bài Thi Hoàn Thành',
+        trend: { icon: '↗', text: '+3 tuần này', direction: 'up' }
+    }) %>
+    
+    <%- include('../partials/stats-card', { 
+        icon: '⭐', 
+        gradient: 'linear-gradient(135deg, #fa709a, #fee140)',
+        value: '86%',
+        label: 'Điểm Trung Bình',
+        trend: { icon: '↗', text: '+5% so với trước', direction: 'up' }
+    }) %>
+    
+    <%- include('../partials/stats-card', { 
+        icon: '⏱️', 
+        gradient: 'linear-gradient(135deg, #f093fb, #f5576c)',
+        value: '12.5h',
+        label: 'Thời Gian Học',
+        trend: { icon: '📈', text: 'Tuần này' }
+    }) %>
+</div>
+
+<!-- Recent Tests Section -->
+<%- include('../partials/section-header', { 
+    icon: '📊', 
+    title: 'Kết Quả Bài Thi Gần Đây',
+    link: { url: '#', text: 'Xem Tất Cả' }
+}) %>
+
+<div class="items-grid" style="grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));">
+    <% 
+    const sampleTests = [
+        { id: 1, name: 'IKMC 2024 Practice', competition: 'IKMC', score: 88, maxScore: 100, date: '2025-10-28' },
+        { id: 2, name: 'Singapore Math - Unit 3', competition: 'Singapore', score: 92, maxScore: 100, date: '2025-10-25' },
+        { id: 3, name: 'AMC Practice Set 2', competition: 'AMC', score: 76, maxScore: 100, date: '2025-10-20' }
+    ];
+    
+    sampleTests.forEach(test => { 
+        let scorePercentage = Math.round((test.score / test.maxScore) * 100);
+        let iconColor = scorePercentage >= 80 ? '#43e97b' : scorePercentage >= 60 ? '#fa709a' : '#ff6b6b';
+        let statusText = scorePercentage >= 80 ? 'Xuất sắc' : scorePercentage >= 60 ? 'Khá tốt' : 'Cần cải thiện';
+    %>
+    <div class="item-card">
+        <div class="item-header">
+            <div class="item-icon-wrapper" style="background: <%= iconColor %>15; border-color: <%= iconColor %>;">
+                <span>📝</span>
+            </div>
+            <div class="item-header-content">
+                <h3 class="item-title"><%= test.name %></h3>
+                <div class="item-subtitle">
+                    <span class="item-subtitle-icon">🏆</span>
+                    <span><%= test.competition %></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="test-score-display">
+            <div class="score-circle-mini" style="border-color: <%= iconColor %>;">
+                <span class="score-num" style="color: <%= iconColor %>;"><%= test.score %></span>
+                <span class="score-divider">/</span>
+                <span class="score-max"><%= test.maxScore %></span>
+            </div>
+            <div class="score-label-wrapper">
+                <span class="score-percentage-text"><%= scorePercentage %>%</span>
+                <span class="score-status" style="color: <%= iconColor %>;">
+                    <%= statusText %>
+                </span>
+            </div>
+        </div>
+
+        <div class="item-meta">
+            <span class="meta-item">
+                <span class="icon">📅</span>
+                <%= test.date %>
+            </span>
+            <span class="meta-item">
+                <span class="icon">✓</span>
+                Đã hoàn thành
+            </span>
+        </div>
+
+        <div class="item-actions">
+            <a href="#" class="btn btn-primary">Xem Chi Tiết</a>
+            <a href="#" class="btn btn-outline">Tải Báo Cáo</a>
+        </div>
+    </div>
+    <% }); %>
+</div>
+
+<!-- Course Progress Section -->
+<%- include('../partials/section-header', { 
+    icon: '📚', 
+    title: 'Tiến Độ Khóa Học',
+    link: { url: '#', text: 'Xem Tất Cả' }
+}) %>
+
+<div class="items-grid">
+    <% 
+    const sampleCourses = [
+        { id: 1, name: 'Singapore Math - Grade 5', progress: 68, color: '#667eea', lessons: { completed: 15, total: 22 } },
+        { id: 2, name: 'Math Olympiad Basic', progress: 45, color: '#764ba2', lessons: { completed: 9, total: 20 } },
+        { id: 3, name: 'IKMC Preparation', progress: 82, color: '#fa709a', lessons: { completed: 18, total: 22 } }
+    ];
+    
+    sampleCourses.forEach(course => { %>
+    <div class="item-card">
+        <div class="item-header">
+            <div class="item-icon-wrapper" style="background: <%= course.color %>20; border-color: <%= course.color %>;">
+                <span>📖</span>
+            </div>
+            <div class="item-header-content">
+                <h3 class="item-title"><%= course.name %></h3>
+                <div class="item-subtitle">
+                    <span class="item-subtitle-icon">👨‍🏫</span>
+                    <span><%= course.lessons.completed %>/<%= course.lessons.total %> bài học</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="item-progress-section">
+            <div class="progress-header">
+                <span class="progress-value" style="color: <%= course.color %>;"><%= course.progress %>%</span>
+                <span class="progress-level">
+                    <span class="progress-level-icon">🎯</span>
+                    <% if (course.progress >= 80) { %>
+                        Xuất sắc
+                    <% } else if (course.progress >= 50) { %>
+                        Tốt
+                    <% } else { %>
+                        Cần cố gắng
+                    <% } %>
+                </span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: <%= course.progress %>%; background: <%= course.color %>;"></div>
+            </div>
+        </div>
+        
+        <div class="item-actions">
+            <a href="#" class="btn btn-primary">Xem Chi Tiết</a>
+            <a href="#" class="btn btn-outline">Liên Hệ GV</a>
+        </div>
+    </div>
+    <% }); %>
+</div>
+
+<style>
+/* Import item-card styles */
+@import url('/css/item-card.css');
+
+/* Page Header */
+.page-header {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 2px solid rgba(102, 126, 234, 0.1);
+}
+
+.page-header h1 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-dark);
+    font-weight: 700;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.page-header p {
+    color: var(--text-light);
+    font-size: 1rem;
+}
+
+/* Children Tabs */
+.children-tabs {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.child-tab {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1.5rem;
+    background: white;
+    border: 2px solid rgba(102, 126, 234, 0.2);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+}
+
+.child-tab img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.child-tab:hover {
+    border-color: #667eea;
+    background: rgba(102, 126, 234, 0.05);
+}
+
+.child-tab.active {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    border-color: transparent;
+}
+
+/* Stats Grid */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+.stat-card {
+    background: white;
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    border: 1px solid rgba(0,0,0,0.04);
+    display: flex;
+    gap: 1rem;
+    transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(102, 126, 234, 0.12);
+}
+
+.stat-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.75rem;
+    flex-shrink: 0;
+}
+
+.stat-content {
+    flex: 1;
+}
+
+.stat-content h3 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.stat-content p {
+    font-size: 0.85rem;
+    color: var(--text-light);
+    margin-bottom: 0.5rem;
+}
+
+.stat-trend {
+    font-size: 0.8rem;
+    color: #43e97b;
+    font-weight: 600;
+}
+
+.stat-trend.up {
+    color: #43e97b;
+}
+
+/* Section Header */
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 5rem;
+    margin-bottom: 2rem;
+    padding-top: 3rem;
+    padding-bottom: 1.25rem;
+    border-top: 2px solid rgba(102, 126, 234, 0.12);
+    border-bottom: 2px solid rgba(102, 126, 234, 0.1);
+    position: relative;
+    background: linear-gradient(to bottom, rgba(102, 126, 234, 0.02), transparent);
+}
+
+.section-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 120px;
+    height: 4px;
+    background: linear-gradient(90deg, #667eea, #764ba2);
+    border-radius: 3px;
+    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+}
+
+.section-header h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-dark);
+}
+
+.section-link {
+    color: #667eea;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.section-link:hover {
+    color: #764ba2;
+    transform: translateX(4px);
+}
+
+/* Items Grid */
+.items-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 1.5rem;
+}
+
+/* Ensure item-card styles work */
+.item-card {
+    background: white;
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    border: 1px solid rgba(0,0,0,0.04);
+    transition: all 0.3s ease;
+}
+
+.item-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(102, 126, 234, 0.12);
+}
+</style>
+
+<script>
+function showChildReport(childId) {
+    // Update active tab
+    document.querySelectorAll('.child-tab').forEach(tab => {
+        tab.classList.remove('active');
+    });
+    event.target.closest('.child-tab').classList.add('active');
+    
+    // In real app, load child-specific data via AJAX
+    console.log('Loading report for child:', childId);
+}
+</script>

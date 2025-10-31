@@ -1,0 +1,146 @@
+<!-- Welcome Banner -->
+<div class="welcome-banner">
+    <div class="welcome-content">
+        <div class="welcome-avatar">
+            <img src="<%= user.avatar %>" alt="<%= user.name %>">
+            <div class="level-badge">Level <%= user.level %></div>
+        </div>
+        <div class="welcome-text">
+            <h1>Chào <%= user.name %>! 👋</h1>
+            <p>Hôm nay bạn muốn học gì?</p>
+            <div class="welcome-stats">
+                <span>🔥 <%= stats.totalXP %> XP</span>
+                <span>⭐ <%= stats.testsCompleted %> bài thi</span>
+            </div>
+        </div>
+    </div>
+    <div class="welcome-actions">
+        <a href="/student/tests" class="btn btn-primary">Làm Bài Thi</a>
+        <a href="/student/courses" class="btn btn-outline">Học Bài Mới</a>
+    </div>
+</div>
+
+<!-- Stats Cards -->
+<div class="stats-grid">
+    <div class="stat-card">
+        <div class="stat-icon purple">📝</div>
+        <div class="stat-content">
+            <div class="stat-value"><%= stats.testsCompleted %></div>
+            <div class="stat-label">Bài Thi Đã Làm</div>
+        </div>
+        <div class="stat-trend positive">+12% tháng này</div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-icon blue">📚</div>
+        <div class="stat-content">
+            <div class="stat-value"><%= stats.coursesEnrolled %></div>
+            <div class="stat-label">Khóa Học</div>
+        </div>
+        <div class="stat-trend">3 đang học</div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-icon green">🏆</div>
+        <div class="stat-content">
+            <div class="stat-value"><%= stats.averageScore %>%</div>
+            <div class="stat-label">Điểm Trung Bình</div>
+        </div>
+        <div class="stat-trend positive">+5% tuần này</div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-icon orange">⭐</div>
+        <div class="stat-content">
+            <div class="stat-value"><%= stats.totalXP %></div>
+            <div class="stat-label">Điểm Kinh Nghiệm</div>
+        </div>
+        <div class="stat-trend">Level <%= user.level %></div>
+    </div>
+</div>
+
+<!-- Two Column Layout -->
+<div class="content-grid">
+    <!-- Recent Tests -->
+    <div class="content-section">
+        <div class="section-header">
+            <h2>Bài Thi Gần Đây</h2>
+            <a href="/student/tests" class="view-all">Xem tất cả →</a>
+        </div>
+        <div class="test-list">
+            <% recentTests.forEach(test => { %>
+            <div class="test-item">
+                <div class="test-icon"><%= test.competition %></div>
+                <div class="test-info">
+                    <h4><%= test.name %></h4>
+                    <p><%= test.date %></p>
+                </div>
+                <div class="test-score <%= test.score >= 80 ? 'high' : test.score >= 60 ? 'medium' : 'low' %>">
+                    <%= test.score %>/<%= test.maxScore %>
+                </div>
+            </div>
+            <% }); %>
+        </div>
+    </div>
+
+    <!-- Upcoming -->
+    <div class="content-section">
+        <div class="section-header">
+            <h2>Sắp Diễn Ra</h2>
+        </div>
+        <div class="upcoming-list">
+            <% upcomingEvents.forEach(event => { %>
+            <div class="upcoming-item">
+                <div class="upcoming-date">
+                    <div class="date-day"><%= new Date(event.date).getDate() %></div>
+                    <div class="date-month">Th <%= new Date(event.date).getMonth() + 1 %></div>
+                </div>
+                <div class="upcoming-info">
+                    <h4><%= event.title %></h4>
+                    <p>🕐 <%= event.time %></p>
+                </div>
+                <div class="upcoming-type" style="background: <%= event.color %>;">
+                    <%= event.type %>
+                </div>
+            </div>
+            <% }); %>
+        </div>
+    </div>
+</div>
+
+<!-- Progress Section -->
+<div class="content-section full-width">
+    <div class="section-header">
+        <h2>Tiến Độ Học Tập</h2>
+    </div>
+    <div class="progress-grid">
+        <% progress.forEach(course => { %>
+        <div class="progress-card">
+            <div class="progress-header">
+                <h4><%= course.courseName %></h4>
+                <span><%= course.progress %>%</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: <%= course.progress %>%; background: <%= course.color %>;"></div>
+            </div>
+            <p class="progress-text"><%= course.lessonsCompleted %>/<%= course.totalLessons %> bài học đã hoàn thành</p>
+        </div>
+        <% }); %>
+    </div>
+</div>
+
+<!-- Achievements -->
+<div class="content-section full-width">
+    <div class="section-header">
+        <h2>Thành Tích Gần Đây</h2>
+    </div>
+    <div class="achievements-grid">
+        <% achievements.slice(0, 4).forEach(achievement => { %>
+        <div class="achievement-card <%= achievement.unlocked ? '' : 'locked' %>">
+            <div class="achievement-icon"><%= achievement.icon %></div>
+            <h4><%= achievement.name %></h4>
+            <p><%= achievement.description %></p>
+        </div>
+        <% }); %>
+    </div>
+</div>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title || 'SWF Math - Nền Tảng Học Toán Online' %></title>
+    <meta name="description" content="Học toán online theo chương trình Singapore, luyện thi IKMC, AMC, IMC và các cuộc thi toán học quốc tế">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/landing.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <div class="nav-brand">
+                    <img src="/img/logo.svg" alt="SWF Math" class="logo" onerror="this.style.display='none'">
+                    <span class="brand-name">SWF Math</span>
+                </div>
+                
+                <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="/" class="<%= currentPath === '/' ? 'active' : '' %>">Trang Chủ</a></li>
+                    <li><a href="/courses" class="<%= currentPath === '/courses' ? 'active' : '' %>">Khóa Học</a></li>
+                    <li><a href="/competitions" class="<%= currentPath === '/competitions' ? 'active' : '' %>">Cuộc Thi</a></li>
+                    <li><a href="/blog" class="<%= currentPath === '/blog' ? 'active' : '' %>">Blog</a></li>
+                    <li><a href="/about" class="<%= currentPath === '/about' ? 'active' : '' %>">Về Chúng Tôi</a></li>
+                </ul>
+
+                <div class="nav-actions">
+                    <a href="/login" class="btn btn-ghost">Đăng Nhập</a>
+                    <a href="/register" class="btn btn-primary">Đăng Ký</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <%- body %>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3 class="footer-title">SWF Math</h3>
+                    <p class="footer-description">
+                        Nền tảng học toán online hàng đầu dành cho học sinh tiểu học và THCS.
+                    </p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook">📘</a>
+                        <a href="#" aria-label="YouTube">📺</a>
+                        <a href="#" aria-label="Instagram">📷</a>
+                    </div>
+                </div>
+
+                <div class="footer-section">
+                    <h4 class="footer-heading">Sản Phẩm</h4>
+                    <ul class="footer-links">
+                        <li><a href="/courses">Khóa Học</a></li>
+                        <li><a href="/competitions">Cuộc Thi</a></li>
+                        <li><a href="#">Trò Chơi</a></li>
+                        <li><a href="#">Tài Liệu</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4 class="footer-heading">Hỗ Trợ</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Trung Tâm Trợ Giúp</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Liên Hệ</a></li>
+                        <li><a href="#">Điều Khoản</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4 class="footer-heading">Liên Hệ</h4>
+                    <ul class="footer-contact">
+                        <li>📧 support@swfmath.com</li>
+                        <li>📞 1900 xxxx</li>
+                        <li>📍 TP. Hồ Chí Minh, Việt Nam</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 SWF Math. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/js/main.js"></script>
+</body>
+</html>

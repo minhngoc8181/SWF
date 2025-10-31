@@ -1,0 +1,1059 @@
+<!-- Page Header -->
+<%- include('../partials/page-header', { 
+    icon: '⚙️', 
+    title: 'Cài Đặt',
+    description: 'Quản lý thông tin tài khoản và tùy chỉnh hệ thống'
+}) %>
+
+<div class="settings-container">
+    <div class="settings-layout">
+        <!-- Settings Sidebar Navigation -->
+        <div class="settings-sidebar">
+            <nav class="settings-nav">
+                <a href="#account" class="settings-nav-item active">
+                    <span class="nav-icon">👤</span>
+                    <span>Tài Khoản</span>
+                </a>
+                <a href="#security" class="settings-nav-item">
+                    <span class="nav-icon">🔒</span>
+                    <span>Bảo Mật</span>
+                </a>
+                <a href="#notifications" class="settings-nav-item">
+                    <span class="nav-icon">🔔</span>
+                    <span>Thông Báo</span>
+                </a>
+                <% if (typeof children !== 'undefined' && children && children.length > 0) { %>
+                <a href="#children" class="settings-nav-item">
+                    <span class="nav-icon">👶</span>
+                    <span>Quản Lý Con</span>
+                </a>
+                <% } %>
+                <a href="#privacy" class="settings-nav-item">
+                    <span class="nav-icon">🛡️</span>
+                    <span>Quyền Riêng Tư</span>
+                </a>
+                <a href="#danger" class="settings-nav-item danger">
+                    <span class="nav-icon">⚠️</span>
+                    <span>Vùng Nguy Hiểm</span>
+                </a>
+            </nav>
+        </div>
+
+        <!-- Settings Content -->
+        <div class="settings-content">
+            <!-- Account Settings -->
+            <div class="settings-section" id="account">
+                <div class="section-header">
+                    <h2>
+                        <span class="section-icon">👤</span>
+                        Thông Tin Tài Khoản
+                    </h2>
+                    <p>Cập nhật thông tin cá nhân của bạn</p>
+                </div>
+                
+                <div class="settings-card">
+                    <!-- Avatar Section -->
+                    <div class="avatar-section">
+                        <div class="avatar-preview-large">
+                            <img src="<%= user.avatar %>" alt="<%= user.name %>">
+                            <button class="avatar-change-btn">
+                                <span>📷</span>
+                            </button>
+                        </div>
+                        <div class="avatar-info">
+                            <h3><%= user.name %></h3>
+                            <p class="role-badge">
+                                <span class="badge-icon">
+                                    <% if (user.role === 'student') { %>🎓
+                                    <% } else if (user.role === 'parent') { %>👨‍👩‍👧‍👦
+                                    <% } else { %>👩‍🏫<% } %>
+                                </span>
+                                <%= user.role === 'student' ? 'Học Sinh' : user.role === 'parent' ? 'Phụ Huynh' : 'Giáo Viên' %>
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Form Fields -->
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>
+                                <span class="label-icon">👤</span>
+                                Họ và Tên
+                            </label>
+                            <input type="text" class="form-input" value="<%= user.name %>" placeholder="Nhập họ tên">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>
+                                <span class="label-icon">✉️</span>
+                                Email
+                            </label>
+                            <input type="email" class="form-input" value="<%= user.email %>" placeholder="Nhập email">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>
+                                <span class="label-icon">📱</span>
+                                Số Điện Thoại
+                            </label>
+                            <input type="tel" class="form-input" value="0123456789" placeholder="Nhập số điện thoại">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>
+                                <span class="label-icon">📅</span>
+                                Ngày Sinh
+                            </label>
+                            <input type="date" class="form-input" value="2000-01-01">
+                        </div>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button class="btn btn-primary">
+                            <span>💾</span>
+                            Lưu Thay Đổi
+                        </button>
+                        <button class="btn btn-outline">
+                            <span>🔄</span>
+                            Khôi Phục
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Security Settings -->
+            <div class="settings-section" id="security">
+                <div class="section-header">
+                    <h2>
+                        <span class="section-icon">🔒</span>
+                        Bảo Mật
+                    </h2>
+                    <p>Quản lý mật khẩu và bảo mật tài khoản</p>
+                </div>
+                
+                <div class="settings-card">
+                    <div class="form-grid">
+                        <div class="form-group full-width">
+                            <label>
+                                <span class="label-icon">🔐</span>
+                                Mật Khẩu Hiện Tại
+                            </label>
+                            <input type="password" class="form-input" placeholder="Nhập mật khẩu hiện tại">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>
+                                <span class="label-icon">🔑</span>
+                                Mật Khẩu Mới
+                            </label>
+                            <input type="password" class="form-input" placeholder="Nhập mật khẩu mới">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>
+                                <span class="label-icon">✅</span>
+                                Xác Nhận Mật Khẩu
+                            </label>
+                            <input type="password" class="form-input" placeholder="Nhập lại mật khẩu mới">
+                        </div>
+                    </div>
+                    
+                    <div class="password-strength">
+                        <span class="strength-label">Độ mạnh mật khẩu:</span>
+                        <div class="strength-bars">
+                            <div class="strength-bar weak"></div>
+                            <div class="strength-bar"></div>
+                            <div class="strength-bar"></div>
+                            <div class="strength-bar"></div>
+                        </div>
+                        <span class="strength-text">Yếu</span>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button class="btn btn-primary">
+                            <span>🔒</span>
+                            Đổi Mật Khẩu
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Notification Settings -->
+            <div class="settings-section" id="notifications">
+                <div class="section-header">
+                    <h2>
+                        <span class="section-icon">🔔</span>
+                        Thông Báo
+                    </h2>
+                    <p>Cấu hình cách bạn nhận thông báo</p>
+                </div>
+                
+                <div class="settings-card">
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h4>
+                                <span class="setting-icon">✉️</span>
+                                Thông báo Email
+                            </h4>
+                            <p>Nhận thông báo qua email về hoạt động quan trọng</p>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h4>
+                                <span class="setting-icon">📊</span>
+                                Báo cáo tuần
+                            </h4>
+                            <p>Nhận báo cáo tổng hợp tiến độ hàng tuần</p>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h4>
+                                <span class="setting-icon">📝</span>
+                                Thông báo bài thi mới
+                            </h4>
+                            <p>Được thông báo khi có bài thi hoặc bài tập mới</p>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h4>
+                                <span class="setting-icon">🏆</span>
+                                Thông báo thành tích
+                            </h4>
+                            <p>Được thông báo khi đạt được thành tích mới</p>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h4>
+                                <span class="setting-icon">💬</span>
+                                Tin nhắn và nhận xét
+                            </h4>
+                            <p>Nhận thông báo khi có tin nhắn hoặc nhận xét mới</p>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Children Management (Only for Parents) -->
+            <% if (typeof children !== 'undefined' && children && children.length > 0) { %>
+            <div class="settings-section" id="children">
+                <div class="section-header">
+                    <h2>
+                        <span class="section-icon">👶</span>
+                        Quản Lý Con
+                    </h2>
+                    <p>Quản lý tài khoản học sinh của con em bạn</p>
+                </div>
+                
+                <div class="settings-card">
+                    <div class="children-list">
+                        <% children.forEach(child => { %>
+                        <div class="child-item-modern">
+                            <div class="child-avatar-section">
+                                <img src="<%= child.avatar %>" alt="<%= child.name %>">
+                                <div class="child-status active"></div>
+                            </div>
+                            <div class="child-info-section">
+                                <h4><%= child.name %></h4>
+                                <div class="child-meta">
+                                    <span class="meta-badge">
+                                        <span class="icon">🎓</span>
+                                        <%= child.grade %>
+                                    </span>
+                                    <span class="meta-badge">
+                                        <span class="icon">🆔</span>
+                                        <%= child.studentId %>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="child-actions">
+                                <button class="btn btn-sm btn-primary">
+                                    <span>👁️</span>
+                                    Xem Chi Tiết
+                                </button>
+                                <button class="btn btn-sm btn-outline">
+                                    <span>⚙️</span>
+                                    Cài Đặt
+                                </button>
+                            </div>
+                        </div>
+                        <% }); %>
+                    </div>
+                    
+                    <button class="btn btn-primary add-child-btn">
+                        <span>➕</span>
+                        Thêm Con
+                    </button>
+                </div>
+            </div>
+            <% } %>
+
+            <!-- Privacy Settings -->
+            <div class="settings-section" id="privacy">
+                <div class="section-header">
+                    <h2>
+                        <span class="section-icon">🛡️</span>
+                        Quyền Riêng Tư
+                    </h2>
+                    <p>Kiểm soát thông tin cá nhân và quyền riêng tư</p>
+                </div>
+                
+                <div class="settings-card">
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h4>
+                                <span class="setting-icon">👁️</span>
+                                Hiển thị hồ sơ công khai
+                            </h4>
+                            <p>Cho phép người khác xem hồ sơ của bạn</p>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h4>
+                                <span class="setting-icon">🏆</span>
+                                Chia sẻ thành tích
+                            </h4>
+                            <p>Cho phép chia sẻ thành tích với cộng đồng</p>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h4>
+                                <span class="setting-icon">📊</span>
+                                Hiển thị điểm số
+                            </h4>
+                            <p>Cho phép người khác xem điểm số của bạn</p>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Danger Zone -->
+            <div class="settings-section" id="danger">
+                <div class="section-header danger">
+                    <h2>
+                        <span class="section-icon">⚠️</span>
+                        Vùng Nguy Hiểm
+                    </h2>
+                    <p>Các hành động không thể hoàn tác</p>
+                </div>
+                
+                <div class="settings-card danger-zone">
+                    <div class="danger-item">
+                        <div class="danger-info">
+                            <h4>
+                                <span class="danger-icon">🗑️</span>
+                                Xóa Tài Khoản
+                            </h4>
+                            <p>Xóa vĩnh viễn tài khoản và toàn bộ dữ liệu. Hành động này không thể hoàn tác.</p>
+                        </div>
+                        <button class="btn btn-danger">
+                            <span>⚠️</span>
+                            Xóa Tài Khoản
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+/* Settings Page - Modern Design */
+:root {
+    --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --gradient-secondary: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+    --shadow-sm: 0 2px 8px rgba(0,0,0,0.06);
+    --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
+    --shadow-lg: 0 8px 32px rgba(0,0,0,0.12);
+    --radius-sm: 10px;
+    --radius-md: 16px;
+    --radius-lg: 20px;
+}
+
+/* Settings Container */
+.settings-container {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: calc(100vh - 80px);
+    padding: 2rem 0 3rem;
+    margin: 0;
+}
+
+.settings-layout {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-lg);
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 2rem;
+    align-items: start;
+}
+
+/* Settings Sidebar */
+.settings-sidebar {
+    position: sticky;
+    top: 100px;
+}
+
+.settings-nav {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: var(--radius-md);
+    padding: 1rem;
+    box-shadow: var(--shadow-md);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.settings-nav-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 1.25rem;
+    border-radius: var(--radius-sm);
+    color: var(--text-dark);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+}
+
+.settings-nav-item:last-child {
+    margin-bottom: 0;
+}
+
+.settings-nav-item .nav-icon {
+    font-size: 1.35rem;
+    width: 28px;
+    text-align: center;
+}
+
+.settings-nav-item:hover {
+    background: rgba(102, 126, 234, 0.1);
+    color: #667eea;
+    transform: translateX(5px);
+}
+
+.settings-nav-item.active {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.settings-nav-item.danger {
+    color: #ff6b6b;
+}
+
+.settings-nav-item.danger:hover {
+    background: rgba(255, 107, 107, 0.1);
+    color: #ff3838;
+}
+
+/* Settings Content */
+.settings-content {
+    flex: 1;
+}
+
+.settings-section {
+    margin-bottom: 2.5rem;
+}
+
+.settings-section:last-child {
+    margin-bottom: 0;
+}
+
+.section-header {
+    margin-bottom: 1.5rem;
+}
+
+.section-header h2 {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.section-header.danger h2 {
+    color: #ffe5e5;
+}
+
+.section-icon {
+    font-size: 2rem;
+}
+
+.section-header p {
+    color: rgba(255, 255, 255, 0.9);
+    margin: 0;
+    font-size: 1rem;
+}
+
+/* Settings Card */
+.settings-card {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.settings-card.danger-zone {
+    border: 2px solid rgba(255, 107, 107, 0.4);
+    background: rgba(255, 245, 245, 0.95);
+}
+
+/* Avatar Section */
+.avatar-section {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.08), rgba(118, 75, 162, 0.08));
+    border-radius: var(--radius-md);
+    margin-bottom: 2rem;
+    border: 1px solid rgba(102, 126, 234, 0.15);
+}
+
+.avatar-preview-large {
+    position: relative;
+}
+
+.avatar-preview-large img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid white;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.avatar-change-btn {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    border: 3px solid white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    transition: all 0.3s ease;
+}
+
+.avatar-change-btn:hover {
+    transform: scale(1.1);
+}
+
+.avatar-info h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.role-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: white;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: #667eea;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+.badge-icon {
+    font-size: 1.1rem;
+}
+
+/* Form Grid */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+    margin-bottom: 1.5rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-group.full-width {
+    grid-column: 1 / -1;
+}
+
+label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    font-size: 0.95rem;
+}
+
+.label-icon {
+    font-size: 1.1rem;
+}
+
+.form-input,
+.form-select,
+.form-textarea {
+    width: 100%;
+    padding: 1rem 1.25rem;
+    background: white;
+    border: 2px solid rgba(102, 126, 234, 0.15);
+    border-radius: var(--radius-sm);
+    font-size: 0.95rem;
+    color: var(--text-dark);
+    transition: all 0.3s ease;
+    font-family: inherit;
+}
+
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+    outline: none;
+    background: white;
+    border-color: #667eea;
+    box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.15);
+}
+
+.form-textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+/* Form Actions */
+.form-actions {
+    display: flex;
+    gap: 1rem;
+    padding-top: 1.5rem;
+    border-top: 2px solid rgba(0,0,0,0.06);
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 2rem;
+    border-radius: var(--radius-sm);
+    font-weight: 700;
+    font-size: 0.95rem;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4);
+}
+
+.btn-outline {
+    background: white;
+    color: #667eea;
+    border: 2px solid #667eea;
+}
+
+.btn-outline:hover {
+    background: rgba(102, 126, 234, 0.05);
+    transform: translateY(-2px);
+}
+
+.btn-danger {
+    background: linear-gradient(135deg, #ff6b6b, #ee5a6f);
+    color: white;
+    box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+}
+
+.btn-danger:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(255, 107, 107, 0.4);
+}
+
+.btn-success {
+    background: linear-gradient(135deg, #51cf66, #37b24d);
+    color: white;
+    box-shadow: 0 4px 12px rgba(81, 207, 102, 0.3);
+}
+
+.btn-success:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(81, 207, 102, 0.4);
+}
+}
+
+/* Password Strength Indicator */
+.password-strength {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.05), rgba(118, 75, 162, 0.05));
+    border-radius: var(--radius-sm);
+    margin-top: 0.75rem;
+    border: 1px solid rgba(102, 126, 234, 0.1);
+}
+
+.strength-label {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--text-dark);
+}
+
+.strength-bars {
+    display: flex;
+    gap: 0.5rem;
+    flex: 1;
+}
+
+.strength-bar {
+    height: 8px;
+    flex: 1;
+    background: rgba(0,0,0,0.08);
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.strength-bar.active {
+    background: linear-gradient(135deg, #51cf66, #37b24d);
+}
+
+.strength-bar.weak {
+    background: linear-gradient(135deg, #ff6b6b, #ee5a6f);
+}
+
+.strength-bar.medium {
+    background: linear-gradient(135deg, #ffd43b, #fab005);
+}
+
+.strength-bar.strong {
+    background: linear-gradient(135deg, #51cf66, #37b24d);
+}
+
+.strength-text {
+    font-size: 0.875rem;
+    font-weight: 700;
+}
+
+.strength-text.weak {
+    color: #ff6b6b;
+}
+
+.strength-text.medium {
+    color: #fab005;
+}
+
+.strength-text.strong {
+    color: #51cf66;
+}
+
+/* Setting Item - Toggle Style */
+.setting-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 0;
+    border-bottom: 2px solid rgba(0,0,0,0.06);
+}
+
+.setting-item:first-child {
+    padding-top: 0;
+}
+
+.setting-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.setting-info {
+    flex: 1;
+}
+
+.setting-info h4 {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 0.25rem;
+}
+
+.setting-icon {
+    font-size: 1.25rem;
+}
+
+.setting-info p {
+    color: var(--text-light);
+    font-size: 0.875rem;
+    margin: 0;
+}
+
+/* Toggle Switch */
+.toggle-switch {
+    position: relative;
+    width: 56px;
+    height: 32px;
+}
+
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.15);
+    border-radius: 32px;
+    transition: all 0.3s ease;
+}
+
+.toggle-slider:before {
+    position: absolute;
+    content: "";
+    height: 24px;
+    width: 24px;
+    left: 4px;
+    bottom: 4px;
+    background: white;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+.toggle-switch input:checked + .toggle-slider {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+}
+
+.toggle-switch input:checked + .toggle-slider:before {
+    transform: translateX(24px);
+}
+
+/* Danger Zone */
+.danger-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+}
+
+.danger-info {
+    flex: 1;
+}
+
+.danger-info h4 {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #ff6b6b;
+    margin-bottom: 0.5rem;
+}
+
+.danger-icon {
+    font-size: 1.35rem;
+}
+
+.danger-info p {
+    color: var(--text-light);
+    font-size: 0.9rem;
+    margin: 0;
+    line-height: 1.6;
+}
+
+/* Children List */
+.children-list {
+    display: grid;
+    gap: 1rem;
+}
+
+.child-card {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    padding: 1.25rem;
+    background: white;
+    border: 2px solid rgba(102, 126, 234, 0.15);
+    border-radius: var(--radius-md);
+    transition: all 0.3s ease;
+}
+
+.child-card:hover {
+    border-color: #667eea;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+    transform: translateY(-2px);
+}
+
+.child-card img {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid white;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.child-info {
+    flex: 1;
+}
+
+.child-info h4 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 0.25rem;
+}
+
+.child-info p {
+    font-size: 0.875rem;
+    color: var(--text-light);
+    margin: 0;
+}
+
+.child-actions {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.btn-small {
+    padding: 0.625rem 1.25rem;
+    font-size: 0.875rem;
+}
+
+/* Responsive Design */
+@media (max-width: 968px) {
+    .settings-layout {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .settings-sidebar {
+        position: static;
+    }
+    
+    .settings-nav {
+        display: flex;
+        overflow-x: auto;
+        gap: 0.5rem;
+        padding: 1rem;
+    }
+    
+    .settings-nav-item {
+        flex-shrink: 0;
+        margin-bottom: 0;
+        white-space: nowrap;
+    }
+}
+
+@media (max-width: 640px) {
+    .settings-container {
+        padding: 1.5rem 0 2rem;
+    }
+    
+    .settings-card {
+        padding: 1.5rem;
+    }
+    
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .form-actions {
+        flex-direction: column;
+    }
+    
+    .btn {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .avatar-section {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .danger-item,
+    .child-card {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .child-actions {
+        width: 100%;
+    }
+}
+</style>

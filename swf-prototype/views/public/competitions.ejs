@@ -1,0 +1,517 @@
+<section class="competitions-hero">
+    <div class="hero-animated-bg">
+        <div class="floating-shape shape-1"></div>
+        <div class="floating-shape shape-2"></div>
+        <div class="floating-shape shape-3"></div>
+        <div class="floating-shape shape-4"></div>
+    </div>
+    <div class="container">
+        <div class="hero-content-wrapper">
+            <div class="hero-icon-massive">🏆</div>
+            <h1 class="hero-title-mega">
+                Các Cuộc Thi<br>
+                <span class="gradient-shimmer">Toán Học Quốc Tế</span>
+            </h1>
+            <p class="hero-description">Luyện thi với hơn 500+ đề thi thực chiến từ các kỳ thi uy tín hàng đầu thế giới</p>
+            <div class="quick-stats-row">
+                <div class="quick-stat-box">
+                    <span class="qs-number">12+</span>
+                    <span class="qs-label">Cuộc thi</span>
+                </div>
+                <div class="quick-stat-box">
+                    <span class="qs-number">500+</span>
+                    <span class="qs-label">Đề thi</span>
+                </div>
+                <div class="quick-stat-box">
+                    <span class="qs-number">1,200+</span>
+                    <span class="qs-label">Học viên</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="competitions-showcase">
+    <div class="container">
+        <% competitions.forEach((comp, index) => { %>
+        <div class="competition-card-premium <%= index % 2 === 0 ? 'card-left' : 'card-right' %>">
+            <div class="card-glow" style="background: <%= comp.color %>30;"></div>
+            
+            <div class="competition-visual">
+                <div class="comp-icon-wrapper" style="background: <%= comp.color %>;">
+                    <span class="comp-icon-mega"><%= comp.icon %></span>
+                    <div class="icon-ring"></div>
+                    <div class="icon-ring ring-2"></div>
+                </div>
+            </div>
+
+            <div class="competition-details">
+                <div class="comp-header-section">
+                    <div class="comp-badge" style="background: <%= comp.color %>;">
+                        <%= comp.name %>
+                    </div>
+                    <h2 class="comp-title"><%= comp.fullName %></h2>
+                    <p class="comp-intro"><%= comp.description %></p>
+                </div>
+
+                <div class="comp-metrics">
+                    <div class="metric-box">
+                        <div class="metric-icon">📝</div>
+                        <div class="metric-info">
+                            <div class="metric-value"><%= comp.totalTests %></div>
+                            <div class="metric-label">Đề Thi Luyện Tập</div>
+                        </div>
+                    </div>
+
+                    <div class="metric-box">
+                        <div class="metric-icon">👥</div>
+                        <div class="metric-info">
+                            <div class="metric-value">1,200+</div>
+                            <div class="metric-label">Học Sinh Tham Gia</div>
+                        </div>
+                    </div>
+
+                    <div class="metric-box">
+                        <div class="metric-icon">🥇</div>
+                        <div class="metric-info">
+                            <div class="metric-value">450+</div>
+                            <div class="metric-label">Đạt Giải Cao</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="comp-features">
+                    <div class="feature-tag">✓ Đề thi chuẩn quốc tế</div>
+                    <div class="feature-tag">✓ Giải chi tiết</div>
+                    <div class="feature-tag">✓ Chấm điểm tự động</div>
+                    <div class="feature-tag">✓ Thống kê tiến độ</div>
+                </div>
+
+                <a href="/student/tests" class="btn-start-practice" style="background: linear-gradient(135deg, <%= comp.color %>, <%= comp.color %>dd);">
+                    <span class="btn-text">Bắt Đầu Luyện Thi <%= comp.name %></span>
+                    <span class="btn-icon">→</span>
+                </a>
+            </div>
+        </div>
+        <% }); %>
+    </div>
+</section>
+
+<style>
+/* Modern Competitions Page */
+:root {
+    --gradient-orange: linear-gradient(135deg, #FF9F40 0%, #F5576C 100%);
+    --gradient-blue: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    --gradient-purple: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+/* Hero Section */
+.competitions-hero {
+    position: relative;
+    min-height: 600px;
+    background: linear-gradient(135deg, #FF9F40 0%, #F5576C 100%);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    padding: 5rem 0;
+}
+
+.hero-animated-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+}
+
+.floating-shape {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+    animation: morph 20s ease-in-out infinite;
+}
+
+.shape-1 {
+    width: 300px;
+    height: 300px;
+    top: 10%;
+    left: 5%;
+    animation-delay: 0s;
+}
+
+.shape-2 {
+    width: 200px;
+    height: 200px;
+    top: 60%;
+    right: 10%;
+    animation-delay: 5s;
+}
+
+.shape-3 {
+    width: 250px;
+    height: 250px;
+    bottom: 10%;
+    left: 40%;
+    animation-delay: 10s;
+}
+
+.shape-4 {
+    width: 180px;
+    height: 180px;
+    top: 30%;
+    right: 30%;
+    animation-delay: 15s;
+}
+
+@keyframes morph {
+    0%, 100% {
+        border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+        transform: rotate(0deg) scale(1);
+    }
+    25% {
+        border-radius: 58% 42% 75% 25% / 76% 46% 54% 24%;
+        transform: rotate(90deg) scale(1.1);
+    }
+    50% {
+        border-radius: 50% 50% 33% 67% / 55% 27% 73% 45%;
+        transform: rotate(180deg) scale(0.9);
+    }
+    75% {
+        border-radius: 33% 67% 58% 42% / 63% 68% 32% 37%;
+        transform: rotate(270deg) scale(1.05);
+    }
+}
+
+.hero-content-wrapper {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: white;
+}
+
+.hero-icon-massive {
+    font-size: 5rem;
+    margin-bottom: 1.5rem;
+    animation: bounce 2s ease-in-out infinite;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+}
+
+.hero-title-mega {
+    font-size: 4rem;
+    font-weight: 900;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+}
+
+.gradient-shimmer {
+    background: linear-gradient(90deg, #fff 0%, #ffe 50%, #fff 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shimmer 3s linear infinite;
+}
+
+@keyframes shimmer {
+    to { background-position: 200% center; }
+}
+
+.hero-description {
+    font-size: 1.35rem;
+    opacity: 0.95;
+    max-width: 700px;
+    margin: 0 auto 3rem;
+    line-height: 1.7;
+}
+
+.quick-stats-row {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    flex-wrap: wrap;
+}
+
+.quick-stat-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1.5rem 2rem;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.qs-number {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+}
+
+.qs-label {
+    font-size: 0.95rem;
+    opacity: 0.9;
+}
+
+/* Competitions Showcase */
+.competitions-showcase {
+    padding: 6rem 0;
+    background: linear-gradient(180deg, #fafbff 0%, #ffffff 100%);
+}
+
+.competition-card-premium {
+    position: relative;
+    display: grid;
+    grid-template-columns: 400px 1fr;
+    gap: 3rem;
+    margin-bottom: 4rem;
+    padding: 3rem;
+    background: white;
+    border-radius: 32px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+    overflow: hidden;
+    transition: all 0.4s ease;
+}
+
+.competition-card-premium:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 16px 48px rgba(0,0,0,0.12);
+}
+
+.card-glow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0.15;
+    pointer-events: none;
+}
+
+.card-right {
+    grid-template-columns: 1fr 400px;
+}
+
+.card-right .competition-visual {
+    order: 2;
+}
+
+.card-right .competition-details {
+    order: 1;
+}
+
+.competition-visual {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.comp-icon-wrapper {
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    box-shadow: 0 12px 36px rgba(0,0,0,0.15);
+}
+
+.comp-icon-mega {
+    font-size: 7rem;
+    position: relative;
+    z-index: 2;
+}
+
+.icon-ring {
+    position: absolute;
+    width: 260px;
+    height: 260px;
+    border: 3px solid currentColor;
+    border-radius: 50%;
+    opacity: 0.2;
+    animation: pulse-ring 3s ease-in-out infinite;
+}
+
+.ring-2 {
+    width: 300px;
+    height: 300px;
+    animation-delay: 1s;
+}
+
+@keyframes pulse-ring {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 0.2;
+    }
+    50% {
+        transform: scale(1.1);
+        opacity: 0.1;
+    }
+}
+
+.competition-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.comp-header-section {
+    margin-bottom: 2rem;
+}
+
+.comp-badge {
+    display: inline-block;
+    padding: 0.625rem 1.5rem;
+    border-radius: 50px;
+    color: white;
+    font-weight: 800;
+    font-size: 0.875rem;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.comp-title {
+    font-size: 2.25rem;
+    font-weight: 800;
+    color: #2c3e50;
+    margin-bottom: 1rem;
+    line-height: 1.3;
+}
+
+.comp-intro {
+    font-size: 1.1rem;
+    color: #6c757d;
+    line-height: 1.7;
+}
+
+.comp-metrics {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.metric-box {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.25rem;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.05), rgba(118, 75, 162, 0.05));
+    border-radius: 16px;
+    border: 2px solid rgba(102, 126, 234, 0.1);
+}
+
+.metric-icon {
+    font-size: 2rem;
+}
+
+.metric-value {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: #2c3e50;
+}
+
+.metric-label {
+    font-size: 0.85rem;
+    color: #6c757d;
+}
+
+.comp-features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+}
+
+.feature-tag {
+    padding: 0.625rem 1.25rem;
+    background: white;
+    border: 2px solid rgba(102, 126, 234, 0.2);
+    border-radius: 50px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #667eea;
+}
+
+.btn-start-practice {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 1.25rem 2.5rem;
+    border-radius: 16px;
+    color: white;
+    font-weight: 800;
+    font-size: 1.1rem;
+    text-decoration: none;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    transition: all 0.3s ease;
+}
+
+.btn-start-practice:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.2);
+}
+
+.btn-icon {
+    font-size: 1.5rem;
+    transition: transform 0.3s ease;
+}
+
+.btn-start-practice:hover .btn-icon {
+    transform: translateX(6px);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .competition-card-premium,
+    .card-right {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .card-right .competition-visual,
+    .card-right .competition-details {
+        order: initial;
+    }
+    
+    .comp-metrics {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-title-mega {
+        font-size: 2.5rem;
+    }
+    
+    .hero-description {
+        font-size: 1.1rem;
+    }
+    
+    .quick-stats-row {
+        gap: 1.5rem;
+    }
+    
+    .comp-icon-wrapper {
+        width: 160px;
+        height: 160px;
+    }
+    
+    .comp-icon-mega {
+        font-size: 5rem;
+    }
+    
+    .comp-title {
+        font-size: 1.75rem;
+    }
+}
+</style>

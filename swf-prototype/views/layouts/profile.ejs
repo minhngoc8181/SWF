@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hồ Sơ - SWF Math</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/profile-page.css">
+</head>
+<body class="profile-layout">
+    <!-- Modern Navbar -->
+    <nav class="modern-navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <img src="/img/logo.svg" alt="SWF Math" class="nav-logo">
+                <span class="nav-brand-text">SWF Math</span>
+            </div>
+            
+            <div class="nav-menu">
+                <a href="/student/dashboard" class="nav-link">
+                    <span class="nav-icon">📊</span>
+                    Dashboard
+                </a>
+                <a href="/student/courses" class="nav-link">
+                    <span class="nav-icon">📚</span>
+                    Khóa Học
+                </a>
+                <a href="/student/tests" class="nav-link">
+                    <span class="nav-icon">📝</span>
+                    Bài Thi
+                </a>
+                <a href="/student/games" class="nav-link">
+                    <span class="nav-icon">🎮</span>
+                    Trò Chơi
+                </a>
+                <a href="/student/progress" class="nav-link">
+                    <span class="nav-icon">📈</span>
+                    Tiến Độ
+                </a>
+            </div>
+
+            <div class="nav-actions">
+                <!-- Notifications -->
+                <div class="nav-notification">
+                    <button class="notification-btn">
+                        <span class="notification-icon">🔔</span>
+                        <span class="notification-badge">3</span>
+                    </button>
+                </div>
+
+                <!-- User Dropdown -->
+                <%- include('../partials/user-dropdown', { user: user }) %>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="profile-main">
+        <%- body %>
+    </main>
+
+    <!-- Footer -->
+    <footer class="modern-footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <img src="/img/logo.svg" alt="SWF Math" class="footer-logo">
+                    <p>Nền tảng học toán trực tuyến hàng đầu Việt Nam</p>
+                </div>
+                
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Về SWF</h4>
+                        <a href="#">Giới Thiệu</a>
+                        <a href="#">Đội Ngũ</a>
+                        <a href="#">Liên Hệ</a>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4>Hỗ Trợ</h4>
+                        <a href="#">Trung Tâm Trợ Giúp</a>
+                        <a href="#">Điều Khoản</a>
+                        <a href="#">Chính Sách</a>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4>Cộng Đồng</h4>
+                        <a href="#">Facebook</a>
+                        <a href="#">YouTube</a>
+                        <a href="#">Blog</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 SWF Math. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

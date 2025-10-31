@@ -1,0 +1,10 @@
+<!-- Section Header Component -->
+<div class="section-header">
+    <h2><%= icon ? icon + ' ' : '' %><%= title %></h2>
+    <% if (typeof link !== 'undefined' && link) { %>
+    <a href="<%= link.url %>" class="section-link"><%= link.text %> →</a>
+    <% } %>
+    <% if (typeof badge !== 'undefined' && badge) { %>
+    <span class="section-badge"><%= badge %></span>
+    <% } %>
+</div>

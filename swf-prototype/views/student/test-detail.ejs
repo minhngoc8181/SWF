@@ -1,0 +1,121 @@
+<div class="test-detail-container">
+    <div class="test-detail-header">
+        <div>
+            <h1><%= test.name %></h1>
+            <p><%= test.description %></p>
+        </div>
+        <div class="test-difficulty <%= test.difficulty %>">
+            <%= test.difficulty.toUpperCase() %>
+        </div>
+    </div>
+
+    <div class="test-info-grid">
+        <div class="info-card">
+            <div class="info-icon">📝</div>
+            <div>
+                <div class="info-value"><%= test.questions %></div>
+                <div class="info-label">Số Câu Hỏi</div>
+            </div>
+        </div>
+        <div class="info-card">
+            <div class="info-icon">⏱️</div>
+            <div>
+                <div class="info-value"><%= test.duration %> phút</div>
+                <div class="info-label">Thời Gian</div>
+            </div>
+        </div>
+        <div class="info-card">
+            <div class="info-icon">👥</div>
+            <div>
+                <div class="info-value"><%= test.attempts %></div>
+                <div class="info-label">Lượt Thi</div>
+            </div>
+        </div>
+        <div class="info-card">
+            <div class="info-icon">📊</div>
+            <div>
+                <div class="info-value"><%= test.avgScore %>%</div>
+                <div class="info-label">Điểm TB</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="test-topics-section">
+        <h3>Chủ Đề</h3>
+        <div class="topics-list">
+            <% test.topics.forEach(topic => { %>
+            <span class="topic-badge"><%= topic %></span>
+            <% }); %>
+        </div>
+    </div>
+
+    <div class="test-actions">
+        <a href="/student/test/<%= test.id %>/take" class="btn btn-primary btn-lg">
+            🚀 Bắt Đầu Làm Bài
+        </a>
+        <a href="/student/tests" class="btn btn-outline btn-lg">
+            ← Quay Lại
+        </a>
+    </div>
+</div>
+
+<style>
+.test-detail-container { max-width: 900px; }
+.test-detail-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    margin-bottom: 2rem;
+    gap: 2rem;
+}
+.test-difficulty {
+    padding: 0.5rem 1.5rem;
+    border-radius: 20px;
+    font-weight: bold;
+    white-space: nowrap;
+}
+.test-difficulty.easy { background: #E8F5E9; color: #2E7D32; }
+.test-difficulty.medium { background: #FFF3E0; color: #E65100; }
+.test-difficulty.hard { background: #FFEBEE; color: #C62828; }
+.test-info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+.info-card {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.info-icon { font-size: 2rem; }
+.info-value { font-size: 1.5rem; font-weight: bold; color: #4A90E2; }
+.info-label { color: #666; font-size: 0.875rem; }
+.test-topics-section {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+}
+.topics-list {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+}
+.topic-badge {
+    background: #E3F2FD;
+    color: #1976D2;
+    padding: 0.5rem 1rem;
+    border-radius: 16px;
+    font-size: 0.875rem;
+}
+.test-actions {
+    display: flex;
+    gap: 1rem;
+}
+</style>

@@ -1,0 +1,557 @@
+<section class="blog-hero-section">
+    <div class="hero-pattern-bg"></div>
+    <div class="container">
+        <div class="hero-blog-content">
+            <span class="hero-badge">📚 Blog & Tin Tức</span>
+            <h1 class="blog-hero-title">
+                Khám Phá Thế Giới<br>
+                <span class="text-gradient-green">Toán Học Kỳ Thú</span>
+            </h1>
+            <p class="blog-hero-subtitle">Cập nhật kiến thức, mẹo học tập và tin tức mới nhất về toán học từ đội ngũ chuyên gia</p>
+        </div>
+    </div>
+</section>
+
+<section class="blog-main-section">
+    <div class="container">
+        <!-- Category Filter -->
+        <div class="blog-categories">
+            <button class="category-pill active">Tất Cả</button>
+            <button class="category-pill">Mẹo Học Tập</button>
+            <button class="category-pill">Kiến Thức</button>
+            <button class="category-pill">Câu Chuyện</button>
+            <button class="category-pill">Tin Tức</button>
+        </div>
+
+        <!-- Featured Post -->
+        <% if (posts.length > 0) { %>
+        <div class="featured-post">
+            <div class="featured-image">
+                <% if (posts[0].thumbnail && posts[0].thumbnail !== '/img/placeholder-blog.jpg') { %>
+                <img src="<%= posts[0].thumbnail %>" alt="<%= posts[0].title %>">
+                <% } else { %>
+                <div class="blog-placeholder">
+                    <span class="blog-placeholder-icon">📰</span>
+                </div>
+                <% } %>
+                <div class="featured-overlay">
+                    <span class="featured-label">Nổi Bật</span>
+                </div>
+            </div>
+            <div class="featured-content">
+                <span class="category-badge <%= posts[0].category.toLowerCase() %>"><%= posts[0].category %></span>
+                <h2 class="featured-title"><%= posts[0].title %></h2>
+                <p class="featured-excerpt"><%= posts[0].excerpt %></p>
+                <div class="post-meta-row">
+                    <div class="author-info">
+                        <div class="author-avatar">
+                            <span><%= posts[0].author.charAt(0) %></span>
+                        </div>
+                        <div class="author-details">
+                            <span class="author-name"><%= posts[0].author %></span>
+                            <span class="post-date"><%= posts[0].date %></span>
+                        </div>
+                    </div>
+                    <div class="read-time">
+                        <span class="time-icon">⏱️</span>
+                        <span><%= posts[0].readTime %></span>
+                    </div>
+                </div>
+                <a href="#" class="btn-read-featured">Đọc Bài Viết →</a>
+            </div>
+        </div>
+        <% } %>
+
+        <!-- Blog Grid -->
+        <div class="blog-posts-grid">
+            <% posts.slice(1).forEach(post => { %>
+            <article class="blog-post-card">
+                <div class="post-image-wrapper">
+                    <% if (post.thumbnail && post.thumbnail !== '/img/placeholder-blog.jpg') { %>
+                    <img src="<%= post.thumbnail %>" alt="<%= post.title %>">
+                    <% } else { %>
+                    <div class="blog-placeholder">
+                        <span class="blog-placeholder-icon">📝</span>
+                    </div>
+                    <% } %>
+                    <div class="image-overlay-gradient"></div>
+                    <span class="category-tag <%= post.category.toLowerCase() %>"><%= post.category %></span>
+                </div>
+                
+                <div class="post-card-body">
+                    <div class="post-meta-mini">
+                        <span class="meta-item">
+                            <span class="meta-icon">✍️</span>
+                            <%= post.author %>
+                        </span>
+                        <span class="meta-item">
+                            <span class="meta-icon">📅</span>
+                            <%= post.date %>
+                        </span>
+                    </div>
+
+                    <h3 class="post-card-title"><%= post.title %></h3>
+                    <p class="post-card-excerpt"><%= post.excerpt %></p>
+
+                    <div class="post-footer">
+                        <span class="reading-time">⏱️ <%= post.readTime %></span>
+                        <a href="#" class="link-read-more">
+                            Đọc thêm
+                            <span class="arrow-icon">→</span>
+                        </a>
+                    </div>
+                </div>
+            </article>
+            <% }); %>
+        </div>
+    </div>
+</section>
+
+<style>
+/* Modern Blog Page Styles */
+:root {
+    --gradient-green: linear-gradient(135deg, #7BC043 0%, #38F9D7 100%);
+    --color-green-light: #7BC043;
+    --color-green-dark: #38F9D7;
+}
+
+/* Hero Section */
+.blog-hero-section {
+    position: relative;
+    background: linear-gradient(135deg, #7BC043 0%, #38F9D7 100%);
+    padding: 5rem 0 4rem;
+    overflow: hidden;
+}
+
+.hero-pattern-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        radial-gradient(circle at 20% 30%, rgba(255,255,255,0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(255,255,255,0.08) 0%, transparent 50%);
+}
+
+.hero-blog-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: white;
+}
+
+.hero-badge {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.blog-hero-title {
+    font-size: 3.75rem;
+    font-weight: 900;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+}
+
+.text-gradient-green {
+    background: linear-gradient(135deg, #ffffff 0%, #e0ffe0 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.blog-hero-subtitle {
+    font-size: 1.25rem;
+    max-width: 700px;
+    margin: 0 auto;
+    opacity: 0.95;
+    line-height: 1.7;
+}
+
+/* Blog Main Section */
+.blog-main-section {
+    padding: 5rem 0;
+    background: linear-gradient(180deg, #f8fff8 0%, #ffffff 100%);
+}
+
+/* Category Filter */
+.blog-categories {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 4rem;
+    flex-wrap: wrap;
+}
+
+.category-pill {
+    padding: 0.75rem 2rem;
+    background: white;
+    border: 2px solid rgba(123, 192, 67, 0.2);
+    border-radius: 50px;
+    font-weight: 700;
+    color: var(--color-green-light);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.category-pill:hover {
+    border-color: var(--color-green-light);
+    background: rgba(123, 192, 67, 0.05);
+    transform: translateY(-2px);
+}
+
+.category-pill.active {
+    background: var(--gradient-green);
+    color: white;
+    border-color: transparent;
+    box-shadow: 0 4px 12px rgba(123, 192, 67, 0.3);
+}
+
+/* Featured Post */
+.featured-post {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    background: white;
+    border-radius: 32px;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+    margin-bottom: 4rem;
+    border: 1px solid rgba(0,0,0,0.06);
+}
+
+.featured-image {
+    position: relative;
+    height: 100%;
+    min-height: 400px;
+    background: linear-gradient(135deg, #7BC043 0%, #38F9D7 100%);
+}
+
+.featured-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.blog-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #7BC043 0%, #38F9D7 100%);
+}
+
+.blog-placeholder-icon {
+    font-size: 5rem;
+    opacity: 0.9;
+}
+
+.featured-overlay {
+    position: absolute;
+    top: 2rem;
+    left: 2rem;
+}
+
+.featured-label {
+    padding: 0.75rem 1.5rem;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 50px;
+    font-weight: 800;
+    font-size: 0.875rem;
+    color: var(--color-green-light);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.featured-content {
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.category-badge {
+    display: inline-block;
+    padding: 0.5rem 1.25rem;
+    border-radius: 50px;
+    font-size: 0.875rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    width: fit-content;
+}
+
+.category-badge.kiến-thức,
+.category-badge.kiến.thức {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+}
+
+.category-badge.mẹo-học-tập,
+.category-badge.mẹo.học.tập {
+    background: linear-gradient(135deg, #f093fb, #f5576c);
+    color: white;
+}
+
+.category-badge.câu-chuyện,
+.category-badge.câu.chuyện {
+    background: linear-gradient(135deg, #4facfe, #00f2fe);
+    color: white;
+}
+
+.category-badge.tin-tức,
+.category-badge.tin.tức {
+    background: linear-gradient(135deg, #43e97b, #38f9d7);
+    color: white;
+}
+
+.featured-title {
+    font-size: 2.25rem;
+    font-weight: 800;
+    color: #2c3e50;
+    margin-bottom: 1rem;
+    line-height: 1.3;
+}
+
+.featured-excerpt {
+    font-size: 1.1rem;
+    color: #6c757d;
+    line-height: 1.7;
+    margin-bottom: 2rem;
+}
+
+.post-meta-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding: 1.25rem 0;
+    border-top: 2px solid rgba(0,0,0,0.06);
+    border-bottom: 2px solid rgba(0,0,0,0.06);
+}
+
+.author-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.author-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--gradient-green);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 800;
+    font-size: 1.25rem;
+}
+
+.author-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.author-name {
+    font-weight: 700;
+    color: #2c3e50;
+}
+
+.post-date {
+    font-size: 0.875rem;
+    color: #6c757d;
+}
+
+.read-time {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    color: #6c757d;
+}
+
+.btn-read-featured {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.25rem 2.5rem;
+    background: var(--gradient-green);
+    color: white;
+    border-radius: 16px;
+    font-weight: 800;
+    text-decoration: none;
+    box-shadow: 0 8px 24px rgba(123, 192, 67, 0.3);
+    transition: all 0.3s ease;
+}
+
+.btn-read-featured:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(123, 192, 67, 0.4);
+}
+
+/* Blog Posts Grid */
+.blog-posts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    gap: 2.5rem;
+}
+
+.blog-post-card {
+    background: white;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+    transition: all 0.4s ease;
+    border: 1px solid rgba(0,0,0,0.06);
+}
+
+.blog-post-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.12);
+}
+
+.post-image-wrapper {
+    position: relative;
+    height: 240px;
+    overflow: hidden;
+}
+
+.post-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.blog-post-card:hover .post-image-wrapper img {
+    transform: scale(1.08);
+}
+
+.image-overlay-gradient {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 50%;
+    background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);
+}
+
+.category-tag {
+    position: absolute;
+    top: 1.25rem;
+    left: 1.25rem;
+    padding: 0.5rem 1.25rem;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.post-card-body {
+    padding: 2rem;
+}
+
+.post-meta-mini {
+    display: flex;
+    gap: 1.25rem;
+    margin-bottom: 1.25rem;
+    font-size: 0.875rem;
+    color: #6c757d;
+}
+
+.meta-item {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.post-card-title {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 0.75rem;
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.post-card-excerpt {
+    color: #6c757d;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.post-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1.25rem;
+    border-top: 2px solid rgba(0,0,0,0.06);
+}
+
+.reading-time {
+    font-size: 0.875rem;
+    color: #6c757d;
+    font-weight: 600;
+}
+
+.link-read-more {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--color-green-light);
+    font-weight: 700;
+    text-decoration: none;
+    transition: gap 0.3s ease;
+}
+
+.link-read-more:hover {
+    gap: 0.75rem;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .featured-post {
+        grid-template-columns: 1fr;
+    }
+    
+    .featured-image {
+        min-height: 320px;
+    }
+}
+
+@media (max-width: 768px) {
+    .blog-hero-title {
+        font-size: 2.5rem;
+    }
+    
+    .blog-posts-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .featured-content {
+        padding: 2rem;
+    }
+    
+    .featured-title {
+        font-size: 1.75rem;
+    }
+}
+</style>

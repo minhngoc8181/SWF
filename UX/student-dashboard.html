@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Học Sinh - SWF Math</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+    <!-- Dashboard Header -->
+    <header class="dashboard-header">
+        <div class="header-left">
+            <button class="sidebar-toggle" id="sidebarToggle">☰</button>
+            <div class="brand">
+                <span class="brand-name">SWF Math</span>
+            </div>
+        </div>
+        
+        <div class="header-right">
+            <div class="search-box">
+                <input type="text" placeholder="Tìm kiếm...">
+                <span class="search-icon">🔍</span>
+            </div>
+            <button class="notification-btn">
+                🔔
+                <span class="badge">3</span>
+            </button>
+            <div class="user-menu">
+                <img src="img/avatar-placeholder.png" alt="User" class="user-avatar" onerror="this.style.display='none'">
+                <span class="user-name">Minh Khôi</span>
+                <span class="dropdown-icon">▼</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item active">
+                    <span class="nav-icon">🏠</span>
+                    <span class="nav-text">Trang Chủ</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="nav-icon">📝</span>
+                    <span class="nav-text">Bài Thi</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="nav-icon">📚</span>
+                    <span class="nav-text">Khóa Học</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="nav-icon">🎮</span>
+                    <span class="nav-text">Trò Chơi</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="nav-icon">📊</span>
+                    <span class="nav-text">Tiến Độ</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="nav-icon">🏆</span>
+                    <span class="nav-text">Thành Tích</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="nav-icon">⚙️</span>
+                    <span class="nav-text">Cài Đặt</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Welcome Banner -->
+            <div class="welcome-banner">
+                <div class="welcome-text">
+                    <h1>Chào Minh Khôi! 👋</h1>
+                    <p>Hôm nay bạn muốn học gì?</p>
+                </div>
+                <div class="welcome-actions">
+                    <button class="btn btn-primary">Làm Bài Thi</button>
+                    <button class="btn btn-outline">Học Bài Mới</button>
+                </div>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon purple">📝</div>
+                    <div class="stat-content">
+                        <div class="stat-value">24</div>
+                        <div class="stat-label">Bài Thi Đã Làm</div>
+                    </div>
+                    <div class="stat-trend positive">+12% tháng này</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon blue">📚</div>
+                    <div class="stat-content">
+                        <div class="stat-value">8</div>
+                        <div class="stat-label">Khóa Học</div>
+                    </div>
+                    <div class="stat-trend">3 đang học</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon green">🏆</div>
+                    <div class="stat-content">
+                        <div class="stat-value">85%</div>
+                        <div class="stat-label">Điểm Trung Bình</div>
+                    </div>
+                    <div class="stat-trend positive">+5% tuần này</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon orange">⭐</div>
+                    <div class="stat-content">
+                        <div class="stat-value">1,250</div>
+                        <div class="stat-label">Điểm Kinh Nghiệm</div>
+                    </div>
+                    <div class="stat-trend">Level 12</div>
+                </div>
+            </div>
+
+            <!-- Two Column Layout -->
+            <div class="content-grid">
+                <!-- Recent Tests -->
+                <div class="content-section">
+                    <div class="section-header">
+                        <h2>Bài Thi Gần Đây</h2>
+                        <a href="#" class="view-all">Xem tất cả →</a>
+                    </div>
+                    <div class="test-list">
+                        <div class="test-item">
+                            <div class="test-icon">📝</div>
+                            <div class="test-info">
+                                <h3>IKMC 2024 - Lớp 6</h3>
+                                <p>Hoàn thành 2 ngày trước</p>
+                            </div>
+                            <div class="test-score success">85/100</div>
+                        </div>
+
+                        <div class="test-item">
+                            <div class="test-icon">📝</div>
+                            <div class="test-info">
+                                <h3>AMC 8 Practice Test #5</h3>
+                                <p>Hoàn thành 5 ngày trước</p>
+                            </div>
+                            <div class="test-score success">92/100</div>
+                        </div>
+
+                        <div class="test-item">
+                            <div class="test-icon">📝</div>
+                            <div class="test-info">
+                                <h3>Toán Olympiad Cơ Bản</h3>
+                                <p>Hoàn thành 1 tuần trước</p>
+                            </div>
+                            <div class="test-score warning">78/100</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Upcoming -->
+                <div class="content-section">
+                    <div class="section-header">
+                        <h2>Sắp Diễn Ra</h2>
+                    </div>
+                    <div class="upcoming-list">
+                        <div class="upcoming-item">
+                            <div class="upcoming-date">
+                                <div class="date-day">15</div>
+                                <div class="date-month">THG 11</div>
+                            </div>
+                            <div class="upcoming-info">
+                                <h3>Cuộc Thi TIMO 2025</h3>
+                                <p>Đăng ký trước 10/11</p>
+                            </div>
+                        </div>
+
+                        <div class="upcoming-item">
+                            <div class="upcoming-date">
+                                <div class="date-day">20</div>
+                                <div class="date-month">THG 11</div>
+                            </div>
+                            <div class="upcoming-info">
+                                <h3>Bài Kiểm Tra Cuối Tháng</h3>
+                                <p>Bài thi tổng hợp</p>
+                            </div>
+                        </div>
+
+                        <div class="upcoming-item">
+                            <div class="upcoming-date">
+                                <div class="date-day">25</div>
+                                <div class="date-month">THG 11</div>
+                            </div>
+                            <div class="upcoming-info">
+                                <h3>Kết Thúc Khóa Algebra</h3>
+                                <p>Bài thi cuối khóa</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Progress Section -->
+            <div class="content-section full-width">
+                <div class="section-header">
+                    <h2>Tiến Độ Học Tập</h2>
+                </div>
+                <div class="progress-grid">
+                    <div class="progress-card">
+                        <div class="progress-header">
+                            <h3>Toán Singapore - Lớp 6</h3>
+                            <span class="progress-percent">68%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill"></div>
+                        </div>
+                        <p class="progress-text">15/22 bài học đã hoàn thành</p>
+                    </div>
+
+                    <div class="progress-card">
+                        <div class="progress-header">
+                            <h3>Math Olympiad Cơ Bản</h3>
+                            <span class="progress-percent">45%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill"></div>
+                        </div>
+                        <p class="progress-text">9/20 bài học đã hoàn thành</p>
+                    </div>
+
+                    <div class="progress-card">
+                        <div class="progress-header">
+                            <h3>Luyện Thi IKMC</h3>
+                            <span class="progress-percent">85%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill"></div>
+                        </div>
+                        <p class="progress-text">17/20 đề đã làm</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Achievements -->
+            <div class="content-section full-width">
+                <div class="section-header">
+                    <h2>Thành Tích Gần Đây</h2>
+                </div>
+                <div class="achievements-grid">
+                    <div class="achievement-card">
+                        <div class="achievement-icon">🏆</div>
+                        <h3>Streak Master</h3>
+                        <p>Học liên tục 7 ngày</p>
+                    </div>
+                    <div class="achievement-card">
+                        <div class="achievement-icon">⭐</div>
+                        <h3>Perfect Score</h3>
+                        <p>Đạt 100 điểm trong bài thi</p>
+                    </div>
+                    <div class="achievement-card">
+                        <div class="achievement-icon">🎯</div>
+                        <h3>Quiz Champion</h3>
+                        <p>Hoàn thành 50 quiz</p>
+                    </div>
+                    <div class="achievement-card locked">
+                        <div class="achievement-icon">🔒</div>
+                        <h3>Math Wizard</h3>
+                        <p>Đạt level 15</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+</html>

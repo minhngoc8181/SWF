@@ -1,0 +1,174 @@
+<!-- Page Header -->
+<%- include('../partials/page-header', { 
+    icon: '📝', 
+    title: 'Quản Lý Bài Tập',
+    description: 'Tạo, chấm và theo dõi bài tập của học sinh'
+}) %>
+
+<!-- Quick Stats -->
+<div class="stats-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); margin-bottom: 3rem;">
+    <%- include('../partials/stats-card', { 
+        icon: '📋', 
+        gradient: 'linear-gradient(135deg, #667eea, #764ba2)',
+        value: assignments.length,
+        label: 'Tổng Bài Tập'
+    }) %>
+    
+    <%- include('../partials/stats-card', { 
+        icon: '⏰', 
+        gradient: 'linear-gradient(135deg, #fa709a, #fee140)',
+        value: assignments.filter(a => new Date(a.dueDate) > new Date()).length,
+        label: 'Đang Hoạt Động'
+    }) %>
+    
+    <%- include('../partials/stats-card', { 
+        icon: '✅', 
+        gradient: 'linear-gradient(135deg, #43e97b, #38f9d7)',
+        value: assignments.reduce((sum, a) => sum + a.submitted, 0),
+        label: 'Đã Nộp'
+    }) %>
+    
+    <%- include('../partials/stats-card', { 
+        icon: '⏳', 
+        gradient: 'linear-gradient(135deg, #f093fb, #f5576c)',
+        value: assignments.reduce((sum, a) => sum + (a.total - a.submitted), 0),
+        label: 'Chưa Nộp'
+    }) %>
+</div>
+
+<!-- Assignments List -->
+<%- include('../partials/section-header', { 
+    icon: '📝', 
+    title: 'Danh Sách Bài Tập'
+}) %>
+
+<div class="items-grid" style="grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));">
+    <% assignments.forEach(assign => { 
+        const progress = Math.round((assign.submitted / assign.total) * 100);
+        const dueDate = new Date(assign.dueDate);
+        const isOverdue = dueDate < new Date();
+        let statusColor = '#667eea';
+        let statusIcon = '✓';
+        let statusText = 'Đang hoạt động';
+        
+        if (isOverdue) {
+            statusColor = '#ff6b6b';
+            statusIcon = '⚠️';
+            statusText = 'Quá hạn';
+        } else if (progress >= 80) {
+            statusColor = '#43e97b';
+            statusIcon = '✓';
+            statusText = 'Tốt';
+        } else if (progress >= 50) {
+            statusColor = '#fa709a';
+            statusIcon = '⏰';
+            statusText = 'Trung bình';
+        }
+    %>
+    <div class="item-card">
+        <!-- Header -->
+        <div class="item-header">
+            <div class="item-icon-wrapper" style="background: <%= statusColor %>20; border-color: <%= statusColor %>;">
+                <span>📝</span>
+            </div>
+            <div class="item-header-content">
+                <h3 class="item-title"><%= assign.title %></h3>
+                <div class="item-subtitle">
+                    <span class="item-subtitle-icon">📚</span>
+                    <span><%= assign.class %></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Status Badge -->
+        <div style="margin: var(--spacing-md) 0;">
+            <span class="item-badge" style="background: <%= statusColor %>20; color: <%= statusColor %>; border: 2px solid <%= statusColor %>40;">
+                <span class="badge-icon"><%= statusIcon %></span>
+                <%= statusText %>
+            </span>
+        </div>
+
+        <!-- Meta Info -->
+        <div class="item-meta">
+            <span class="meta-item <%= isOverdue ? 'overdue' : '' %>">
+                <span class="icon">📅</span>
+                Hạn: <%= assign.dueDate %>
+            </span>
+            <span class="meta-item">
+                <span class="icon">�</span>
+                <%= assign.total %> học sinh
+            </span>
+        </div>
+
+        <!-- Stats Bar -->
+        <div class="item-stats-bar">
+            <div class="stat-item">
+                <span class="stat-label">Đã nộp</span>
+                <span class="stat-value" style="color: <%= statusColor %>;"><%= assign.submitted %></span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+                <span class="stat-label">Chưa nộp</span>
+                <span class="stat-value"><%= assign.total - assign.submitted %></span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+                <span class="stat-label">Tiến độ</span>
+                <span class="stat-value" style="color: <%= statusColor %>;"><%= progress %>%</span>
+            </div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="item-progress" style="margin-top: var(--spacing-md);">
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: <%= progress %>%; background: <%= statusColor %>;"></div>
+            </div>
+            <div class="progress-labels">
+                <span><%= assign.submitted %> đã nộp</span>
+                <span><%= assign.total - assign.submitted %> chưa nộp</span>
+            </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="item-actions">
+            <a href="/teacher/assignment/<%= assign.id %>" class="btn btn-primary">
+                <span>📋</span>
+                Xem Chi Tiết
+            </a>
+            <a href="/teacher/assignment/<%= assign.id %>/grade" class="btn btn-outline">
+                <span>✏️</span>
+                Chấm Bài
+            </a>
+        </div>
+    </div>
+    <% }); %>
+</div>
+
+<style>
+.meta-item.overdue {
+    color: #ff6b6b;
+    font-weight: 700;
+}
+
+.progress-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    color: var(--text-light);
+    font-weight: 600;
+    margin-top: 0.5rem;
+}
+
+.item-progress .progress-bar {
+    height: 8px;
+    background: rgba(0,0,0,0.06);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.item-progress .progress-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.5s ease;
+}
+</style>

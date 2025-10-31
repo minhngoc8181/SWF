@@ -1,0 +1,92 @@
+<div class="auth-container">
+    <div class="auth-card">
+        <div class="auth-header">
+            <a href="/" class="auth-logo">
+                <span class="brand-name">SWF Math</span>
+            </a>
+            <h1>Đăng Nhập</h1>
+            <p>Chào mừng trở lại! Hãy đăng nhập để tiếp tục học tập</p>
+        </div>
+
+        <form class="auth-form" id="loginForm" action="/student/dashboard" method="get">
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input 
+                    type="email" 
+                    id="email" 
+                    name="email" 
+                    placeholder="your@email.com"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="password">Mật khẩu</label>
+                <input 
+                    type="password" 
+                    id="password" 
+                    name="password" 
+                    placeholder="••••••••"
+                    required
+                >
+                <a href="#" class="forgot-password">Quên mật khẩu?</a>
+            </div>
+
+            <div class="form-group">
+                <label class="checkbox-label">
+                    <input type="checkbox" name="remember">
+                    <span>Ghi nhớ đăng nhập</span>
+                </label>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block">
+                Đăng Nhập
+            </button>
+        </form>
+
+        <div class="auth-divider">
+            <span>Hoặc đăng nhập bằng</span>
+        </div>
+
+        <div class="social-login">
+            <button class="btn btn-social btn-google">
+                <span class="social-icon">G</span>
+                Google
+            </button>
+            <button class="btn btn-social btn-facebook">
+                <span class="social-icon">f</span>
+                Facebook
+            </button>
+        </div>
+
+        <div class="auth-footer">
+            <p>Chưa có tài khoản? <a href="/register">Đăng ký ngay</a></p>
+        </div>
+
+        <div class="demo-accounts" style="margin-top: 2rem; padding: 1rem; background: #f0f8ff; border-radius: 8px;">
+            <strong>🎯 Demo Accounts:</strong>
+            <ul style="margin: 0.5rem 0; padding-left: 1.5rem; font-size: 0.875rem;">
+                <li><a href="/student/dashboard">Học Sinh Dashboard</a></li>
+                <li><a href="/parent/dashboard">Phụ Huynh Dashboard</a></li>
+                <li><a href="/teacher/dashboard">Giáo Viên Dashboard</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="auth-illustration">
+        <div class="illustration-content">
+            <h2>Học Toán Thông Minh Mỗi Ngày</h2>
+            <p>Tham gia cùng hàng ngàn học sinh đang học toán hiệu quả</p>
+            <div class="illustration-stats">
+                <div class="stat">
+                    <div class="stat-value">5,000+</div>
+                    <div class="stat-label">Học sinh</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">200+</div>
+                    <div class="stat-label">Đề thi</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

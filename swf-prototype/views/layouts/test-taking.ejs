@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title || 'Làm Bài Thi - SWF Math' %></title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <style>
+        body { margin: 0; overflow: hidden; }
+        .test-taking-header {
+            background: #fff;
+            border-bottom: 1px solid #e0e0e0;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .test-taking-container {
+            height: calc(100vh - 60px);
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+    <!-- Minimal Header for Test Taking -->
+    <div class="test-taking-header">
+        <div>
+            <strong><%= test.name %></strong>
+        </div>
+        <div id="timer" style="font-size: 1.2rem; font-weight: bold; color: #FF9F40;">
+            ⏱️ <span id="time-remaining"><%= test.duration %>:00</span>
+        </div>
+        <div>
+            <button class="btn btn-outline" onclick="if(confirm('Bạn có chắc muốn thoát?')) window.location='/student/tests'">
+                Thoát
+            </button>
+        </div>
+    </div>
+
+    <div class="test-taking-container">
+        <%- body %>
+    </div>
+
+    <script src="/js/main.js"></script>
+    <script>
+        // Simple countdown timer
+        let timeLeft = <%= test.duration %> * 60;
+        setInterval(() => {
+            timeLeft--;
+            const mins = Math.floor(timeLeft / 60);
+            const secs = timeLeft % 60;
+            document.getElementById('time-remaining').textContent = 
+                `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+            if (timeLeft <= 0) {
+                alert('Hết giờ! Bài thi sẽ tự động nộp.');
+                // Auto submit
+            }
+        }, 1000);
+    </script>
+</body>
+</html>

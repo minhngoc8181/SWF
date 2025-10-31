@@ -1,0 +1,254 @@
+<!-- User Dropdown Component -->
+<div class="user-dropdown">
+    <button class="user-btn" onclick="toggleUserMenu()">
+        <img src="<%= user.avatar %>" alt="<%= user.name %>" class="user-avatar-mini">
+        <span class="user-name"><%= user.name %></span>
+        <span class="dropdown-icon">▼</span>
+    </button>
+    
+    <div class="user-dropdown-menu" id="userMenu">
+        <div class="dropdown-header-section">
+            <img src="<%= user.avatar %>" alt="<%= user.name %>" class="dropdown-avatar-large">
+            <div class="dropdown-user-info">
+                <strong><%= user.name %></strong>
+                <span class="user-email"><%= user.email %></span>
+                <% if (typeof user !== 'undefined' && user.role) { %>
+                <span class="user-role-badge">
+                    <% if (user.role === 'student') { %>🎓
+                    <% } else if (user.role === 'parent') { %>👨‍👩‍👧‍👦
+                    <% } else if (user.role === 'teacher') { %>👩‍🏫
+                    <% } %>
+                    <%= user.role === 'student' ? 'Học Sinh' : user.role === 'parent' ? 'Phụ Huynh' : 'Giáo Viên' %>
+                </span>
+                <% } %>
+            </div>
+        </div>
+        
+        <div class="dropdown-divider"></div>
+        
+        <a href="/profile" class="dropdown-item-modern">
+            <span class="item-icon">👤</span>
+            <span class="item-text">Hồ Sơ Cá Nhân</span>
+        </a>
+        
+        <a href="/settings" class="dropdown-item-modern">
+            <span class="item-icon">⚙️</span>
+            <span class="item-text">Cài Đặt</span>
+        </a>
+        
+        <% if (typeof user !== 'undefined' && user.role === 'student') { %>
+        <a href="/student/progress" class="dropdown-item-modern">
+            <span class="item-icon">📊</span>
+            <span class="item-text">Tiến Độ</span>
+        </a>
+        <% } %>
+        
+        <% if (typeof user !== 'undefined' && user.role === 'teacher') { %>
+        <a href="/teacher/students" class="dropdown-item-modern">
+            <span class="item-icon">👥</span>
+            <span class="item-text">Học Sinh</span>
+        </a>
+        <% } %>
+        
+        <% if (typeof user !== 'undefined' && user.role === 'parent') { %>
+        <a href="/parent/reports" class="dropdown-item-modern">
+            <span class="item-icon">📊</span>
+            <span class="item-text">Báo Cáo</span>
+        </a>
+        <% } %>
+        
+        <div class="dropdown-divider"></div>
+        
+        <a href="/login" class="dropdown-item-modern logout-item">
+            <span class="item-icon">🚪</span>
+            <span class="item-text">Đăng Xuất</span>
+        </a>
+    </div>
+</div>
+
+<style>
+/* User Dropdown Modern Styles */
+.user-dropdown {
+    position: relative;
+}
+
+.user-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    background: white;
+    border: 2px solid rgba(102, 126, 234, 0.2);
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.user-btn:hover {
+    background: rgba(102, 126, 234, 0.05);
+    border-color: rgba(102, 126, 234, 0.4);
+    transform: translateY(-1px);
+}
+
+.user-avatar-mini {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid rgba(102, 126, 234, 0.3);
+}
+
+.user-name {
+    font-weight: 600;
+    color: var(--text-dark);
+    font-size: 0.9rem;
+}
+
+.dropdown-icon {
+    font-size: 0.7rem;
+    color: var(--text-light);
+    transition: transform 0.3s ease;
+}
+
+.user-btn:hover .dropdown-icon {
+    transform: translateY(2px);
+}
+
+.user-dropdown-menu {
+    position: absolute;
+    top: calc(100% + 0.75rem);
+    right: 0;
+    min-width: 280px;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+    border: 1px solid rgba(0,0,0,0.06);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    z-index: 1000;
+}
+
+.user-dropdown-menu.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdown-header-section {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.25rem;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.05), rgba(118, 75, 162, 0.05));
+    border-radius: 16px 16px 0 0;
+}
+
+.dropdown-avatar-large {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid white;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.dropdown-user-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    flex: 1;
+}
+
+.dropdown-user-info strong {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-dark);
+}
+
+.user-email {
+    font-size: 0.8rem;
+    color: var(--text-light);
+}
+
+.user-role-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.3rem 0.65rem;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    width: fit-content;
+    margin-top: 0.25rem;
+}
+
+.dropdown-divider {
+    height: 1px;
+    background: rgba(0,0,0,0.08);
+    margin: 0.5rem 0;
+}
+
+.dropdown-item-modern {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.875rem 1.25rem;
+    color: var(--text-dark);
+    text-decoration: none;
+    transition: all 0.2s ease;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.dropdown-item-modern:hover {
+    background: rgba(102, 126, 234, 0.08);
+    color: #667eea;
+}
+
+.dropdown-item-modern .item-icon {
+    font-size: 1.25rem;
+    width: 24px;
+    text-align: center;
+}
+
+.dropdown-item-modern.logout-item {
+    color: #ff6b6b;
+}
+
+.dropdown-item-modern.logout-item:hover {
+    background: rgba(255, 107, 107, 0.08);
+    color: #ff6b6b;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .user-name {
+        display: none;
+    }
+    
+    .user-dropdown-menu {
+        min-width: 260px;
+    }
+}
+</style>
+
+<script>
+function toggleUserMenu() {
+    const menu = document.getElementById('userMenu');
+    menu.classList.toggle('show');
+}
+
+// Close dropdown when clicking outside
+document.addEventListener('click', function(event) {
+    const dropdown = document.querySelector('.user-dropdown');
+    const menu = document.getElementById('userMenu');
+    
+    if (dropdown && !dropdown.contains(event.target)) {
+        menu.classList.remove('show');
+    }
+});
+</script>

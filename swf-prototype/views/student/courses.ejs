@@ -1,0 +1,61 @@
+<!-- Page Header -->
+<div class="page-header">
+    <h1>📚 Khóa Học Của Tôi</h1>
+    <p>Các khóa học bạn đang theo học</p>
+</div>
+
+<!-- Courses Grid -->
+<div class="items-grid">
+    <% courses.forEach(course => { %>
+    <div class="item-card">
+        <!-- Header: Icon + Title -->
+        <div class="item-header">
+            <div class="item-icon-wrapper" style="background: <%= course.color %>15; border-color: <%= course.color %>40;">
+                <span style="filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));">📖</span>
+            </div>
+            <div class="item-header-content">
+                <h3 class="item-title"><%= course.name %></h3>
+                <div class="item-subtitle">
+                    <span class="item-subtitle-icon">👨‍🏫</span>
+                    <span><%= course.teacher %></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Description -->
+        <p class="item-description"><%= course.description %></p>
+
+        <!-- Meta Info -->
+        <div class="item-meta">
+            <span class="meta-item">
+                <span class="icon">📊</span>
+                <%= course.totalLessons %> bài học
+            </span>
+            <span class="meta-item">
+                <span class="icon">🎓</span>
+                <%= course.grade %>
+            </span>
+        </div>
+
+        <!-- Progress Section with Level -->
+        <div class="item-progress-section">
+            <div class="progress-header">
+                <span class="progress-value"><%= course.progress %>%</span>
+                <span class="progress-level">
+                    <span class="progress-level-icon">⭐</span>
+                    Level <%= Math.floor(course.progress / 20) + 1 %>
+                </span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: <%= course.progress %>%; background: <%= course.color %>;"></div>
+            </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="item-actions">
+            <a href="#" class="btn btn-primary">Tiếp Tục Học</a>
+            <a href="#" class="btn btn-outline">Chi Tiết</a>
+        </div>
+    </div>
+    <% }); %>
+</div>

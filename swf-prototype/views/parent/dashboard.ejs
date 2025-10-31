@@ -1,0 +1,364 @@
+<!-- Page Header -->
+<%- include('../partials/page-header', { 
+    icon: '👨‍👩‍👧‍👦', 
+    title: 'Dashboard Phụ Huynh',
+    description: 'Theo dõi tiến độ học tập của con em'
+}) %>
+
+<!-- Quick Stats -->
+<div class="stats-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); margin-bottom: 3rem;">
+    <%- include('../partials/stats-card', { 
+        icon: '👶', 
+        gradient: 'linear-gradient(135deg, #667eea, #764ba2)',
+        value: children.length,
+        label: 'Tổng Con Em'
+    }) %>
+    
+    <%- include('../partials/stats-card', { 
+        icon: '📚', 
+        gradient: 'linear-gradient(135deg, #43e97b, #38f9d7)',
+        value: children.reduce((sum, c) => sum + c.currentCourses, 0),
+        label: 'Khóa Học Đang Học'
+    }) %>
+    
+    <%- include('../partials/stats-card', { 
+        icon: '⭐', 
+        gradient: 'linear-gradient(135deg, #fa709a, #fee140)',
+        value: Math.round(children.reduce((sum, c) => sum + c.averageScore, 0) / children.length) + '%',
+        label: 'Điểm TB Chung'
+    }) %>
+    
+    <%- include('../partials/stats-card', { 
+        icon: '📝', 
+        gradient: 'linear-gradient(135deg, #f093fb, #f5576c)',
+        value: children.reduce((sum, c) => sum + c.testsCompleted, 0),
+        label: 'Bài Thi Đã Làm'
+    }) %>
+</div>
+
+<!-- Children Cards -->
+<%- include('../partials/section-header', { 
+    icon: '👶', 
+    title: 'Con Em Của Bạn'
+}) %>
+
+<div class="items-grid" style="grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));">
+    <% children.forEach(child => { 
+        let performanceColor = '#667eea';
+        let performanceText = 'Khá';
+        
+        if (child.averageScore >= 90) {
+            performanceColor = '#43e97b';
+            performanceText = 'Xuất sắc';
+        } else if (child.averageScore >= 80) {
+            performanceColor = '#38f9d7';
+            performanceText = 'Giỏi';
+        } else if (child.averageScore >= 70) {
+            performanceColor = '#667eea';
+            performanceText = 'Khá';
+        } else if (child.averageScore >= 60) {
+            performanceColor = '#FF9F40';
+            performanceText = 'Trung bình';
+        } else {
+            performanceColor = '#F5576C';
+            performanceText = 'Cần cố gắng';
+        }
+    %>
+    <div class="item-card child-card-enhanced">
+        <!-- Header with Avatar -->
+        <div class="child-header-enhanced">
+            <div class="child-avatar-wrapper" style="border-color: <%= performanceColor %>;">
+                <img src="<%= child.avatar %>" alt="<%= child.name %>">
+                <div class="child-status-badge" style="background: <%= performanceColor %>;">
+                    <span>⭐</span>
+                </div>
+            </div>
+            <div class="child-info-enhanced">
+                <h3><%= child.name %></h3>
+                <div class="child-meta-badges">
+                    <span class="meta-badge grade-badge">
+                        <span class="icon">🎓</span>
+                        <%= child.grade %>
+                    </span>
+                    <span class="meta-badge age-badge">
+                        <span class="icon">🎂</span>
+                        <%= child.age %> tuổi
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Performance Badge -->
+        <div style="margin: var(--spacing-md) 0;">
+            <span class="performance-badge" style="background: <%= performanceColor %>20; color: <%= performanceColor %>; border: 2px solid <%= performanceColor %>40;">
+                <span class="badge-icon">⭐</span>
+                <%= performanceText %>
+            </span>
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="item-stats-bar" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-bottom: var(--spacing-md);">
+            <div class="stat-item">
+                <span class="stat-label">
+                    <span class="icon">📚</span>
+                    Khóa học
+                </span>
+                <span class="stat-value" style="color: <%= performanceColor %>;"><%= child.currentCourses %></span>
+            </div>
+            
+            <div class="stat-item">
+                <span class="stat-label">
+                    <span class="icon">📝</span>
+                    Bài thi
+                </span>
+                <span class="stat-value"><%= child.testsCompleted %></span>
+            </div>
+            
+            <div class="stat-item">
+                <span class="stat-label">
+                    <span class="icon">⭐</span>
+                    Điểm TB
+                </span>
+                <span class="stat-value highlight" style="color: <%= performanceColor %>;"><%= child.averageScore %>%</span>
+            </div>
+            
+            <div class="stat-item">
+                <span class="stat-label">
+                    <span class="icon">⏰</span>
+                    Hoạt động
+                </span>
+                <span class="stat-value small"><%= child.lastActive %></span>
+            </div>
+        </div>
+
+        <!-- Recent Activities -->
+        <div class="recent-section">
+            <h4 class="recent-title">
+                <span class="icon">📋</span>
+                Hoạt động gần đây
+            </h4>
+            <div class="recent-activities">
+                <% child.recentActivity.slice(0, 3).forEach(act => { %>
+                <div class="activity-item-enhanced">
+                    <span class="activity-dot" style="background: <%= performanceColor %>;"></span>
+                    <div class="activity-content">
+                        <div class="activity-text"><%= act.activity %></div>
+                        <div class="activity-date">
+                            <span class="icon">📅</span>
+                            <%= act.date %>
+                        </div>
+                    </div>
+                </div>
+                <% }); %>
+            </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="item-actions">
+            <a href="/parent/child/<%= child.id %>" class="btn btn-primary">
+                <span>👁️</span>
+                Xem Chi Tiết
+            </a>
+            <a href="/parent/reports?child=<%= child.id %>" class="btn btn-outline">
+                <span>📊</span>
+                Báo Cáo
+            </a>
+        </div>
+    </div>
+    <% }); %>
+</div>
+
+<style>
+/* Child Card Enhanced */
+.child-card-enhanced {
+    position: relative;
+}
+
+.child-header-enhanced {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    margin-bottom: var(--spacing-lg);
+    padding-bottom: var(--spacing-lg);
+    border-bottom: 2px solid rgba(102, 126, 234, 0.1);
+}
+
+.child-avatar-wrapper {
+    position: relative;
+}
+
+.child-avatar-wrapper img {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.child-status-badge {
+    position: absolute;
+    bottom: -2px;
+    right: -2px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 3px solid white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.child-info-enhanced h3 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.child-meta-badges {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.meta-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.4rem 0.85rem;
+    background: rgba(102, 126, 234, 0.1);
+    color: #667eea;
+    border-radius: 16px;
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+.meta-badge .icon {
+    font-size: 0.9rem;
+}
+
+.performance-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    font-weight: 700;
+}
+
+.badge-icon {
+    font-size: 1rem;
+}
+
+.item-stats-bar .stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem;
+    background: rgba(102, 126, 234, 0.03);
+    border-radius: 12px;
+    border: 1px solid rgba(102, 126, 234, 0.1);
+}
+
+.item-stats-bar .stat-label {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.75rem;
+    color: var(--text-light);
+    font-weight: 600;
+}
+
+.item-stats-bar .stat-label .icon {
+    font-size: 1rem;
+}
+
+.item-stats-bar .stat-value {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--text-dark);
+}
+
+.item-stats-bar .stat-value.small {
+    font-size: 0.9rem;
+}
+
+.recent-section {
+    background: rgba(102, 126, 234, 0.03);
+    border-radius: 12px;
+    padding: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+}
+
+.recent-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #667eea;
+    margin-bottom: var(--spacing-md);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.recent-activities {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.activity-item-enhanced {
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+}
+
+.activity-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-top: 0.5rem;
+    flex-shrink: 0;
+}
+
+.activity-content {
+    flex: 1;
+}
+
+.activity-text {
+    font-size: 0.9rem;
+    color: var(--text-dark);
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+.activity-date {
+    font-size: 0.8rem;
+    color: var(--text-light);
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.activity-date .icon {
+    font-size: 0.75rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .items-grid {
+        grid-template-columns: 1fr !important;
+    }
+    
+    .item-stats-bar {
+        grid-template-columns: 1fr !important;
+    }
+}
+</style>

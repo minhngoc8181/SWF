@@ -1,0 +1,797 @@
+<!-- Page Header -->
+<%- include('../partials/page-header', { 
+    icon: '📊', 
+    title: 'Tiến Độ Học Tập',
+    description: 'Theo dõi quá trình học tập và thành tích của bạn'
+}) %>
+
+<div class="progress-content-wrapper">
+<!-- Overview Stats - Dashboard Style -->
+<div class="stats-grid">
+    <%- include('../partials/stats-card', { 
+        icon: '🎯', 
+        gradient: 'linear-gradient(135deg, #667eea, #764ba2)',
+        value: stats.totalXP,
+        label: 'Tổng Điểm XP',
+        trend: { icon: '↗', text: '+245 tuần này', direction: 'up' }
+    }) %>
+    
+    <%- include('../partials/stats-card', { 
+        icon: '📝', 
+        gradient: 'linear-gradient(135deg, #43e97b, #38f9d7)',
+        value: stats.testsCompleted,
+        label: 'Bài Thi Hoàn Thành',
+        trend: { icon: '↗', text: '+3 tuần này', direction: 'up' }
+    }) %>
+    
+    <%- include('../partials/stats-card', { 
+        icon: '⭐', 
+        gradient: 'linear-gradient(135deg, #fa709a, #fee140)',
+        value: stats.averageScore + '%',
+        label: 'Điểm Trung Bình',
+        trend: { icon: '↗', text: '+5% so với trước', direction: 'up' }
+    }) %>
+    
+    <%- include('../partials/stats-card', { 
+        icon: '🏆', 
+        gradient: 'linear-gradient(135deg, #f093fb, #f5576c)',
+        value: achievements.filter(a => a.unlocked).length,
+        label: 'Thành Tích',
+        trend: { icon: '📈', text: achievements.length + ' tổng cộng' }
+    }) %>
+</div>
+
+<!-- Course Progress Section -->
+<%- include('../partials/section-header', { 
+    icon: '📚', 
+    title: 'Tiến Độ Khóa Học',
+    link: { url: '/student/courses', text: 'Xem Tất Cả' }
+}) %>
+
+<div class="items-grid">
+    <% progress.forEach(course => { %>
+    <div class="item-card">
+        <!-- Header: Icon + Title (consistent with other cards) -->
+        <div class="item-header">
+            <div class="item-icon-wrapper" style="background: <%= course.color %>20; border-color: <%= course.color %>;">
+                <span>📖</span>
+            </div>
+            <div class="item-header-content">
+                <h3 class="item-title"><%= course.courseName %></h3>
+                <div class="item-subtitle">
+                    <span class="item-subtitle-icon">👨‍🏫</span>
+                    <span><%= course.lessonsCompleted %>/<%= course.totalLessons %> bài học</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Progress Bar with Level -->
+        <div class="item-progress-section">
+            <div class="progress-header">
+                <span class="progress-value" style="color: <%= course.color %>;"><%= course.progress %>%</span>
+                <span class="progress-level">
+                    <span class="progress-level-icon">🎯</span>
+                    <% if (course.progress >= 80) { %>
+                        Xuất sắc
+                    <% } else if (course.progress >= 50) { %>
+                        Tốt
+                    <% } else { %>
+                        Cần cố gắng
+                    <% } %>
+                </span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: <%= course.progress %>%; background: <%= course.color %>;"></div>
+            </div>
+        </div>
+        
+        <!-- Actions -->
+        <div class="item-actions">
+            <a href="/student/course/<%= course.id %>" class="btn btn-primary">Tiếp Tục Học</a>
+            <a href="/student/course/<%= course.id %>" class="btn btn-outline">Chi Tiết</a>
+        </div>
+    </div>
+    <% }); %>
+</div>
+
+<!-- Test Results Section - Reuse Tests Component -->
+<%- include('../partials/section-header', { 
+    icon: '📊', 
+    title: 'Đề Thi Nổi Bật',
+    link: { url: '/student/tests', text: 'Xem Tất Cả' }
+}) %>
+
+<!-- Reuse item-card component from Tests page -->
+<div class="items-grid" style="grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));">
+    <% recentTests.forEach(test => { 
+        // Calculate score-based styling
+        let scorePercentage = Math.round((test.score / test.maxScore) * 100);
+        let iconColor = '#667eea';
+        let difficultyText = 'Dễ';
+        
+        if (scorePercentage >= 80) {
+            iconColor = '#43e97b';
+            difficultyText = 'Đã hoàn thành';
+        } else if (scorePercentage >= 60) {
+            iconColor = '#fa709a';
+            difficultyText = 'Khá tốt';
+        } else {
+            iconColor = '#ff6b6b';
+            difficultyText = 'Cần cải thiện';
+        }
+    %>
+    <div class="item-card">
+        <!-- Header: Icon + Title -->
+        <div class="item-header">
+            <div class="item-icon-wrapper" style="background: <%= iconColor %>15; border-color: <%= iconColor %>;">
+                <span style="filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));">📝</span>
+            </div>
+            <div class="item-header-content">
+                <h3 class="item-title"><%= test.name %></h3>
+                <div class="item-subtitle">
+                    <span class="item-subtitle-icon">🏆</span>
+                    <span><%= test.competition %></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Score Display -->
+        <div class="test-score-display">
+            <div class="score-circle-mini" style="border-color: <%= iconColor %>;">
+                <span class="score-num" style="color: <%= iconColor %>;"><%= test.score %></span>
+                <span class="score-divider">/</span>
+                <span class="score-max"><%= test.maxScore %></span>
+            </div>
+            <div class="score-label-wrapper">
+                <span class="score-percentage-text"><%= scorePercentage %>%</span>
+                <span class="score-status" style="color: <%= iconColor %>;">
+                    <%= difficultyText %>
+                </span>
+            </div>
+        </div>
+
+        <!-- Meta Info -->
+        <div class="item-meta">
+            <span class="meta-item">
+                <span class="icon">📅</span>
+                <%= test.date %>
+            </span>
+            <span class="meta-item">
+                <span class="icon">✓</span>
+                Đã hoàn thành
+            </span>
+        </div>
+
+        <!-- Actions -->
+        <div class="item-actions">
+            <a href="/student/test/<%= test.id %>" class="btn btn-primary">Xem Kết Quả</a>
+            <a href="/student/test/<%= test.id %>" class="btn btn-outline">Làm Lại</a>
+        </div>
+    </div>
+    <% }); %>
+</div>
+
+<!-- Achievements Section -->
+<%- include('../partials/section-header', { 
+    icon: '🏆', 
+    title: 'Thành Tích & Huy Hiệu',
+    badge: achievements.filter(a => a.unlocked).length + '/' + achievements.length + ' đã mở khóa'
+}) %>
+
+<div class="achievements-grid">
+    <% achievements.forEach(achievement => { %>
+    <div class="achievement-card <%= achievement.unlocked ? 'unlocked' : 'locked' %>">
+        <div class="achievement-glow"></div>
+        <div class="achievement-icon-big">
+            <%= achievement.icon %>
+        </div>
+        <h4><%= achievement.name %></h4>
+        <p><%= achievement.description %></p>
+        
+        <% if (achievement.unlocked) { %>
+        <div class="achievement-unlock-info">
+            <span class="unlock-badge">
+                <span class="badge-icon">✓</span>
+                Đã Đạt Được
+            </span>
+            <span class="unlock-date">
+                <%= achievement.unlockedDate %>
+            </span>
+        </div>
+        <% } else { %>
+        <div class="achievement-locked-info">
+            <span class="lock-icon">🔒</span>
+            <span class="lock-text">Chưa Mở Khóa</span>
+        </div>
+        <% } %>
+    </div>
+    <% }); %>
+</div>
+</div> <!-- End progress-content-wrapper -->
+
+<style>
+/* Progress Page Content Wrapper */
+.progress-content-wrapper {
+    padding: 0 0.5rem; /* Subtle horizontal padding */
+    max-width: 1400px; /* Prevent too wide on large screens */
+    margin: 0 auto; /* Center content */
+}
+
+/* Override any background colors for consistency */
+.progress-content-wrapper .item-card,
+.progress-content-wrapper .achievement-card {
+    background: white !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    border: 1px solid rgba(0,0,0,0.04);
+}
+
+.progress-content-wrapper .item-card:hover,
+.progress-content-wrapper .achievement-card:hover {
+    box-shadow: 0 8px 24px rgba(102, 126, 234, 0.12);
+    transform: translateY(-4px);
+}
+
+/* Stats Grid - Dashboard Style */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: var(--spacing-lg);
+    margin-bottom: 5rem; /* Increased spacing after stats */
+}
+
+.stat-card {
+    background: white;
+    border-radius: 16px;
+    padding: var(--spacing-lg);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    border: 1px solid rgba(0,0,0,0.04);
+    display: flex;
+    gap: var(--spacing-md);
+    transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(102, 126, 234, 0.12);
+}
+
+.stat-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.75rem;
+    flex-shrink: 0;
+}
+
+.stat-content {
+    flex: 1;
+}
+
+.stat-content h3 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.stat-content p {
+    font-size: 0.85rem;
+    color: var(--text-light);
+    margin-bottom: 0.5rem;
+}
+
+.stat-trend {
+    font-size: 0.8rem;
+    color: #43e97b;
+    font-weight: 600;
+}
+
+.stat-trend.up {
+    color: #43e97b;
+}
+
+.stat-trend.down {
+    color: #ff6b6b;
+}
+
+/* Section Header */
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 5rem; /* Increased top spacing */
+    margin-bottom: 2rem; /* Increased bottom spacing */
+    padding-top: 3rem; /* Increased padding for breathing room */
+    padding-bottom: 1.25rem;
+    border-top: 2px solid rgba(102, 126, 234, 0.12); /* More visible top divider */
+    border-bottom: 2px solid rgba(102, 126, 234, 0.1);
+    position: relative;
+    background: linear-gradient(to bottom, rgba(102, 126, 234, 0.02), transparent); /* Subtle gradient background */
+}
+
+/* First section header - no top border/margin */
+.section-header:first-of-type {
+    margin-top: 0;
+    padding-top: 0;
+    border-top: none;
+}
+
+.section-header:first-of-type::before {
+    display: none;
+}
+
+/* Add decorative gradient line on top */
+.section-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 120px; /* Wider line */
+    height: 4px; /* Thicker line */
+    background: linear-gradient(90deg, #667eea, #764ba2);
+    border-radius: 3px;
+    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3); /* Add glow effect */
+}
+
+.section-header h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.section-link {
+    color: #667eea;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.section-link:hover {
+    color: #764ba2;
+    transform: translateX(4px);
+}
+
+.section-badge {
+    padding: 0.4rem 1rem;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+    color: #667eea;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+
+/* Add spacing after grid sections */
+.items-grid {
+    margin-bottom: 2.5rem; /* Increased bottom spacing for grids */
+}
+
+/* Test Score Display for Progress Page */
+
+/* Add spacing after grid sections */
+.items-grid {
+    margin-bottom: 2rem; /* Add bottom spacing for grids */
+}
+
+.course-card-header {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+}
+
+.course-icon-circle {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    border: 3px solid;
+    flex-shrink: 0;
+}
+
+.course-header-info {
+    flex: 1;
+}
+
+.course-header-info h3 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+    color: var(--text-dark);
+}
+
+.course-header-info p {
+    font-size: 0.8rem;
+    color: var(--text-light);
+    margin: 0;
+}
+
+.course-percentage {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.course-card-footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: var(--spacing-md);
+    padding-top: var(--spacing-md);
+    border-top: 1px solid rgba(0,0,0,0.08);
+}
+
+.course-stat-mini {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.85rem;
+    color: var(--text-light);
+    font-weight: 600;
+}
+
+/* Test Score Display for Progress Page */
+
+/* Test Results Grid */
+.test-results-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-xl);
+}
+
+.test-result-card {
+    background: white;
+    border-radius: 16px;
+    padding: var(--spacing-lg);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+}
+
+.test-result-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(102, 126, 234, 0.15);
+}
+
+.test-result-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-md);
+}
+
+.test-competition-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.35rem 0.75rem;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+    color: #667eea;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+.test-date {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.75rem;
+    color: var(--text-light);
+}
+
+.test-result-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-bottom: var(--spacing-md);
+    color: var(--text-dark);
+}
+
+.test-score-section {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+    padding: var(--spacing-md);
+    background: rgba(102, 126, 234, 0.03);
+    border-radius: 12px;
+}
+
+.score-circle-large {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    border: 4px solid;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.score-number {
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.score-max {
+    font-size: 0.85rem;
+    color: var(--text-light);
+}
+
+.score-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.score-label {
+    font-size: 0.95rem;
+    font-weight: 700;
+}
+
+.score-percentage {
+    font-size: 0.8rem;
+    color: var(--text-light);
+}
+
+.test-result-footer {
+    padding-top: var(--spacing-md);
+    border-top: 1px solid rgba(0,0,0,0.08);
+}
+
+.btn-link {
+    color: #667eea;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.btn-link:hover {
+    color: #764ba2;
+}
+
+/* Achievements Grid */
+.achievements-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: var(--spacing-lg);
+    margin-bottom: 4rem; /* Increased bottom spacing */
+    padding-bottom: 4rem; /* Increased padding for last section */
+}
+
+.achievement-card {
+    background: white;
+    border-radius: 16px;
+    padding: var(--spacing-xl);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.achievement-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(102, 126, 234, 0.2);
+}
+
+.achievement-card.unlocked {
+    border: 2px solid rgba(67, 233, 123, 0.2);
+    box-shadow: 0 2px 8px rgba(67, 233, 123, 0.1), 0 0 0 1px rgba(67, 233, 123, 0.05);
+}
+
+.achievement-card.locked {
+    opacity: 0.5;
+    filter: grayscale(0.9);
+}
+
+.achievement-glow {
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(67, 233, 123, 0.1) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.achievement-card.unlocked:hover .achievement-glow {
+    opacity: 1;
+}
+
+.achievement-icon-big {
+    font-size: 4rem;
+    margin-bottom: var(--spacing-md);
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
+}
+
+.achievement-card h4 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: var(--text-dark);
+}
+
+.achievement-card p {
+    font-size: 0.85rem;
+    color: var(--text-light);
+    margin-bottom: var(--spacing-md);
+    line-height: 1.4;
+}
+
+.achievement-unlock-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding-top: var(--spacing-md);
+    border-top: 1px solid rgba(0,0,0,0.08);
+}
+
+.unlock-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.35rem 0.75rem;
+    background: linear-gradient(135deg, #43e97b, #38f9d7);
+    color: white;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    align-self: center;
+}
+
+.unlock-date {
+    font-size: 0.75rem;
+    color: #43e97b;
+    font-weight: 600;
+}
+
+.achievement-locked-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.35rem;
+    padding-top: var(--spacing-md);
+    border-top: 1px solid rgba(0,0,0,0.08);
+}
+
+.lock-icon {
+    font-size: 1.25rem;
+    opacity: 0.5;
+}
+
+.lock-text {
+    font-size: 0.75rem;
+    color: var(--text-light);
+    font-weight: 600;
+}
+
+/* Test Score Display for Progress Page */
+.test-score-display {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding: var(--spacing-md);
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.03), rgba(118, 75, 162, 0.03));
+    border-radius: 12px;
+    margin-bottom: var(--spacing-md);
+}
+
+.score-circle-mini {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 4px solid;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.15rem;
+    flex-shrink: 0;
+    background: white;
+}
+
+.score-num {
+    font-size: 1.75rem;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.score-divider {
+    font-size: 1.25rem;
+    color: var(--text-light);
+    font-weight: 400;
+}
+
+.score-max {
+    font-size: 1.25rem;
+    color: var(--text-light);
+    font-weight: 600;
+}
+
+.score-label-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.score-percentage-text {
+    font-size: 1.5rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.score-status {
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .stats-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: var(--spacing-md);
+        margin-bottom: 4rem; /* Reduced on mobile */
+    }
+    
+    .section-header {
+        margin-top: 4rem; /* Reduced on mobile */
+        padding-top: 2.5rem;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+    
+    .section-header::before {
+        width: 100px; /* Smaller on mobile */
+        height: 3px;
+    }
+    
+    .section-header h2 {
+        font-size: 1.25rem;
+    }
+    
+    .items-grid {
+        grid-template-columns: 1fr !important;
+        margin-bottom: 2rem; /* Reduced on mobile */
+    }
+    
+    .achievements-grid {
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        margin-bottom: 3rem; /* Reduced on mobile */
+        padding-bottom: 3rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .stats-grid {
+        grid-template-columns: 1fr;
+        margin-bottom: 3rem;
+    }
+    
+    .section-header {
+        margin-top: 3rem;
+        padding-top: 2rem;
+    }
+    
+    .achievements-grid {
+        grid-template-columns: 1fr;
+    }
+}
+</style>

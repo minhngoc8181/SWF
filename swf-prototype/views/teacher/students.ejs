@@ -1,0 +1,181 @@
+<!-- Page Header -->
+<%- include('../partials/page-header', { 
+    icon: '👥', 
+    title: 'Quản Lý Học Sinh',
+    description: 'Theo dõi tiến độ và thành tích của từng học sinh'
+}) %>
+
+<!-- Quick Stats -->
+<div class="stats-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); margin-bottom: 3rem;">
+    <%- include('../partials/stats-card', { 
+        icon: '👥', 
+        gradient: 'linear-gradient(135deg, #667eea, #764ba2)',
+        value: students.length,
+        label: 'Tổng Học Sinh'
+    }) %>
+    
+    <%- include('../partials/stats-card', { 
+        icon: '⭐', 
+        gradient: 'linear-gradient(135deg, #43e97b, #38f9d7)',
+        value: Math.round(students.reduce((sum, s) => sum + s.avgScore, 0) / students.length) + '%',
+        label: 'Điểm TB Chung'
+    }) %>
+    
+    <%- include('../partials/stats-card', { 
+        icon: '✅', 
+        gradient: 'linear-gradient(135deg, #fa709a, #fee140)',
+        value: students.reduce((sum, s) => sum + s.assignmentsSubmitted, 0),
+        label: 'Bài Đã Nộp'
+    }) %>
+    
+    <%- include('../partials/stats-card', { 
+        icon: '🎯', 
+        gradient: 'linear-gradient(135deg, #f093fb, #f5576c)',
+        value: students.filter(s => s.avgScore >= 80).length,
+        label: 'Học Sinh Giỏi'
+    }) %>
+</div>
+
+<!-- Students List -->
+<%- include('../partials/section-header', { 
+    icon: '👥', 
+    title: 'Danh Sách Học Sinh'
+}) %>
+
+<div class="items-grid">
+    <% students.forEach(student => { 
+        const completionRate = Math.round((student.assignmentsSubmitted / student.totalAssignments) * 100);
+        let performanceColor = '#667eea';
+        let performanceText = 'Trung bình';
+        
+        if (student.avgScore >= 90) {
+            performanceColor = '#43e97b';
+            performanceText = 'Xuất sắc';
+        } else if (student.avgScore >= 80) {
+            performanceColor = '#38f9d7';
+            performanceText = 'Giỏi';
+        } else if (student.avgScore >= 70) {
+            performanceColor = '#667eea';
+            performanceText = 'Khá';
+        } else if (student.avgScore >= 60) {
+            performanceColor = '#FF9F40';
+            performanceText = 'Trung bình';
+        } else {
+            performanceColor = '#F5576C';
+            performanceText = 'Cần cố gắng';
+        }
+    %>
+    <div class="item-card">
+        <!-- Header: Avatar + Name -->
+        <div class="item-header">
+            <div class="item-icon-wrapper" style="background: <%= performanceColor %>15; border-color: <%= performanceColor %>; padding: 0; overflow: hidden;">
+                <img src="<%= student.avatar %>" alt="<%= student.name %>" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;">
+            </div>
+            <div class="item-header-content">
+                <h3 class="item-title"><%= student.name %></h3>
+                <div class="item-subtitle">
+                    <span class="item-subtitle-icon">📚</span>
+                    <span><%= student.class %></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Performance Badge -->
+        <div class="item-badge-row" style="margin: var(--spacing-md) 0;">
+            <span class="item-badge" style="background: <%= performanceColor %>20; color: <%= performanceColor %>; border: 2px solid <%= performanceColor %>40;">
+                <span class="badge-icon">⭐</span>
+                <%= performanceText %>
+            </span>
+        </div>
+
+        <!-- Stats Bar -->
+        <div class="item-stats-bar">
+            <div class="stat-item">
+                <span class="stat-label">Điểm TB</span>
+                <span class="stat-value" style="color: <%= performanceColor %>; -webkit-text-fill-color: <%= performanceColor %>;"><%= student.avgScore %>%</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+                <span class="stat-label">Bài nộp</span>
+                <span class="stat-value"><%= student.assignmentsSubmitted %>/<%= student.totalAssignments %></span>
+            </div>
+        </div>
+
+        <!-- Progress -->
+        <div class="item-progress" style="margin-top: var(--spacing-md);">
+            <div class="progress-header">
+                <span class="progress-label">Tỉ lệ hoàn thành</span>
+                <span class="progress-percent" style="color: <%= performanceColor %>;"><%= completionRate %>%</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: <%= completionRate %>%; background: <%= performanceColor %>;"></div>
+            </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="item-actions">
+            <a href="/teacher/student/<%= student.id %>" class="btn btn-primary">Xem Chi Tiết</a>
+            <button class="btn btn-outline">Liên Hệ</button>
+        </div>
+    </div>
+    <% }); %>
+</div>
+
+<style>
+.item-badge-row {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.item-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    font-weight: 700;
+}
+
+.badge-icon {
+    font-size: 1rem;
+}
+
+.item-progress {
+    padding: var(--spacing-md);
+    background: rgba(102, 126, 234, 0.03);
+    border-radius: 12px;
+}
+
+.progress-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.progress-label {
+    font-size: 0.875rem;
+    color: var(--text-light);
+    font-weight: 600;
+}
+
+.progress-percent {
+    font-size: 0.875rem;
+    font-weight: 700;
+}
+
+.progress-bar {
+    height: 8px;
+    background: rgba(0,0,0,0.06);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.5s ease;
+}
+</style>

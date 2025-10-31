@@ -1,0 +1,238 @@
+<!-- Page Header -->
+<%- include('../partials/page-header', { 
+    icon: '👩‍🏫', 
+    title: 'Dashboard Giáo Viên',
+    description: 'Quản lý lớp học và theo dõi học sinh'
+}) %>
+
+<!-- Stats Grid -->
+<div class="stats-grid">
+    <%- include('../partials/stats-card', { 
+        icon: '👥', 
+        gradient: 'linear-gradient(135deg, #667eea, #764ba2)',
+        value: stats.totalStudents,
+        label: 'Tổng Học Sinh'
+    }) %>
+    
+    <%- include('../partials/stats-card', { 
+        icon: '📚', 
+        gradient: 'linear-gradient(135deg, #f093fb, #f5576c)',
+        value: stats.totalClasses,
+        label: 'Lớp Học'
+    }) %>
+    
+    <%- include('../partials/stats-card', { 
+        icon: '📊', 
+        gradient: 'linear-gradient(135deg, #43e97b, #38f9d7)',
+        value: stats.avgClassScore + '%',
+        label: 'Điểm TB Lớp'
+    }) %>
+    
+    <%- include('../partials/stats-card', { 
+        icon: '✅', 
+        gradient: 'linear-gradient(135deg, #fa709a, #fee140)',
+        value: stats.assignmentsGraded,
+        label: 'Bài Đã Chấm'
+    }) %>
+</div>
+
+<!-- Classes Section -->
+<%- include('../partials/section-header', { 
+    icon: '📚', 
+    title: 'Lớp Học'
+}) %>
+
+<div class="items-grid" style="grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));">
+    <% classes.forEach(cls => { %>
+    <div class="item-card">
+        <div class="item-header">
+            <div class="item-icon-wrapper" style="background: <%= cls.color %>20; border-color: <%= cls.color %>;">
+                <span>🎓</span>
+            </div>
+            <div class="item-header-content">
+                <h3 class="item-title"><%= cls.name %></h3>
+                <div class="item-subtitle">
+                    <span class="item-subtitle-icon">👥</span>
+                    <span><%= cls.students %> học sinh</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="class-stats-section">
+            <div class="class-stat-item">
+                <span class="stat-icon">📊</span>
+                <div class="stat-info">
+                    <span class="stat-label">Điểm TB</span>
+                    <span class="stat-value" style="color: <%= cls.color %>;"><%= cls.avgScore %>%</span>
+                </div>
+            </div>
+            <div class="class-stat-item">
+                <span class="stat-icon">📝</span>
+                <div class="stat-info">
+                    <span class="stat-label">Bài tập</span>
+                    <span class="stat-value"><%= cls.assignments || 0 %></span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="item-actions">
+            <a href="/teacher/class/<%= cls.id %>" class="btn btn-primary">Xem Lớp</a>
+            <a href="/teacher/assignments?class=<%= cls.id %>" class="btn btn-outline">Bài Tập</a>
+        </div>
+    </div>
+    <% }); %>
+</div>
+
+<!-- Assignments Section -->
+<%- include('../partials/section-header', { 
+    icon: '📝', 
+    title: 'Bài Tập Đang Hoạt Động',
+    link: { url: '/teacher/assignments', text: 'Xem Tất Cả' }
+}) %>
+
+<div class="items-grid" style="grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));">
+    <% assignments.slice(0, 6).forEach(assign => { 
+        const progress = Math.round((assign.submitted / assign.total) * 100);
+        const dueDate = new Date(assign.dueDate);
+        const isOverdue = dueDate < new Date();
+        let statusColor = '#667eea';
+        let statusIcon = '✓';
+        let statusText = 'Đang hoạt động';
+        
+        if (isOverdue) {
+            statusColor = '#ff6b6b';
+            statusIcon = '⚠️';
+            statusText = 'Quá hạn';
+        } else if (progress >= 80) {
+            statusColor = '#43e97b';
+            statusIcon = '✓';
+            statusText = 'Tốt';
+        } else if (progress >= 50) {
+            statusColor = '#fa709a';
+            statusIcon = '⏰';
+            statusText = 'Trung bình';
+        }
+    %>
+    <div class="item-card">
+        <!-- Header -->
+        <div class="item-header">
+            <div class="item-icon-wrapper" style="background: <%= statusColor %>20; border-color: <%= statusColor %>;">
+                <span>📝</span>
+            </div>
+            <div class="item-header-content">
+                <h3 class="item-title"><%= assign.title %></h3>
+                <div class="item-subtitle">
+                    <span class="item-subtitle-icon">📚</span>
+                    <span><%= assign.class %></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Status Badge -->
+        <div style="margin: var(--spacing-md) 0;">
+            <span class="item-badge" style="background: <%= statusColor %>20; color: <%= statusColor %>; border: 2px solid <%= statusColor %>40;">
+                <span class="badge-icon"><%= statusIcon %></span>
+                <%= statusText %>
+            </span>
+        </div>
+
+        <!-- Meta Info -->
+        <div class="item-meta">
+            <span class="meta-item">
+                <span class="icon">📅</span>
+                Hạn: <%= assign.dueDate %>
+            </span>
+            <span class="meta-item">
+                <span class="icon">👥</span>
+                <%= assign.total %> học sinh
+            </span>
+        </div>
+
+        <!-- Stats Bar -->
+        <div class="item-stats-bar">
+            <div class="stat-item">
+                <span class="stat-label">Đã nộp</span>
+                <span class="stat-value" style="color: <%= statusColor %>;"><%= assign.submitted %></span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+                <span class="stat-label">Chưa nộp</span>
+                <span class="stat-value"><%= assign.total - assign.submitted %></span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+                <span class="stat-label">Tiến độ</span>
+                <span class="stat-value" style="color: <%= statusColor %>;"><%= progress %>%</span>
+            </div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="item-progress" style="margin-top: var(--spacing-md);">
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: <%= progress %>%; background: <%= statusColor %>;"></div>
+            </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="item-actions">
+            <a href="/teacher/assignment/<%= assign.id %>" class="btn btn-primary">Xem Chi Tiết</a>
+            <a href="/teacher/assignment/<%= assign.id %>/grade" class="btn btn-outline">Chấm Bài</a>
+        </div>
+    </div>
+    <% }); %>
+</div>
+
+<style>
+/* Class Stats Section */
+.class-stats-section {
+    display: flex;
+    gap: 1rem;
+    padding: var(--spacing-md);
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.03), rgba(118, 75, 162, 0.03));
+    border-radius: 12px;
+    margin-bottom: var(--spacing-md);
+}
+
+.class-stat-item {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.class-stat-item .stat-icon {
+    font-size: 1.5rem;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+}
+
+.class-stat-item .stat-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.class-stat-item .stat-label {
+    font-size: 0.75rem;
+    color: var(--text-light);
+    font-weight: 600;
+}
+
+.class-stat-item .stat-value {
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+/* Progress Bar Styles */
+.item-progress .progress-bar {
+    height: 8px;
+    background: rgba(0,0,0,0.06);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.item-progress .progress-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.5s ease;
+}
+</style>

@@ -1,0 +1,294 @@
+<!-- Profile Content Card -->
+<div class="profile-content-card">
+    <!-- Hero Section -->
+    <div class="profile-hero">
+        <img src="<%= user.avatar %>" alt="Avatar" class="profile-hero-avatar">
+        <h1><%= user.name %></h1>
+        <p><%= user.email %></p>
+    </div>
+
+    <!-- Stats Section -->
+    <div class="profile-stats">
+        <div class="profile-stat">
+            <div class="profile-stat-value"><%= stats.totalXP %></div>
+            <div class="profile-stat-label">Tổng XP</div>
+        </div>
+        <div class="profile-stat">
+            <div class="profile-stat-value"><%= stats.testsCompleted %></div>
+            <div class="profile-stat-label">Bài Thi</div>
+        </div>
+        <div class="profile-stat">
+            <div class="profile-stat-value"><%= stats.averageScore %>%</div>
+            <div class="profile-stat-label">Điểm TB</div>
+        </div>
+        <div class="profile-stat">
+            <div class="profile-stat-value"><%= achievements.filter(a => a.unlocked).length %></div>
+            <div class="profile-stat-label">Thành Tích</div>
+        </div>
+    </div>
+
+    <!-- Body Section -->
+    <div class="profile-body">
+        <!-- Personal Information -->
+        <div class="profile-section">
+            <h2>
+                <span>👤</span>
+                Thông Tin Cá Nhân
+            </h2>
+            <div class="info-grid">
+                <div class="info-item">
+                    <label>Họ và Tên</label>
+                    <div class="info-value"><%= user.name %></div>
+                </div>
+                <div class="info-item">
+                    <label>Email</label>
+                    <div class="info-value"><%= user.email %></div>
+                </div>
+                <div class="info-item">
+                    <label>Lớp</label>
+                    <div class="info-value">Lớp <%= user.class || user.grade %></div>
+                </div>
+                <div class="info-item">
+                    <label>Level</label>
+                    <div class="info-value">Level <%= user.level %></div>
+                </div>
+                <div class="info-item">
+                    <label>Ngày Tham Gia</label>
+                    <div class="info-value">Tháng 10, 2024</div>
+                </div>
+                <div class="info-item">
+                    <label">Trạng Thái</label>
+                    <div class="info-value">
+                        <span style="color: #43e97b; font-weight: 700;">● Đang Hoạt Động</span>
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-primary" style="margin-top: 1.5rem;">
+                <span>✏️</span>
+                Chỉnh Sửa Thông Tin
+            </button>
+        </div>
+
+        <!-- Achievements Section -->
+        <div class="profile-section">
+            <h2>
+                <span>🏆</span>
+                Thành Tích Nổi Bật
+            </h2>
+            <div class="achievements-grid">
+                <% achievements.filter(a => a.unlocked).slice(0, 6).forEach(achievement => { %>
+                <div class="achievement-card">
+                    <div class="achievement-icon-big"><%= achievement.icon %></div>
+                    <h4><%= achievement.name %></h4>
+                    <p><%= achievement.description %></p>
+                    <span class="achievement-date">
+                        <%= achievement.unlockedDate %>
+                    </span>
+                </div>
+                <% }); %>
+            </div>
+            <a href="/student/progress#achievements" class="btn btn-outline" style="margin-top: 1.5rem;">
+                Xem Tất Cả Thành Tích
+            </a>
+        </div>
+
+        <!-- Security Settings -->
+        <div class="profile-section">
+            <h2>
+                <span>🔒</span>
+                Bảo Mật
+            </h2>
+            <div class="security-options">
+                <button class="security-btn">
+                    <span class="security-icon">🔑</span>
+                    <div class="security-info">
+                        <strong>Đổi Mật Khẩu</strong>
+                        <p>Cập nhật mật khẩu của bạn</p>
+                    </div>
+                    <span class="security-arrow">→</span>
+                </button>
+                <button class="security-btn">
+                    <span class="security-icon">📧</span>
+                    <div class="security-info">
+                        <strong>Xác Thực Email</strong>
+                        <p>Bảo vệ tài khoản bằng email</p>
+                    </div>
+                    <span class="security-arrow">→</span>
+                </button>
+                <button class="security-btn">
+                    <span class="security-icon">📱</span>
+                    <div class="security-info">
+                        <strong>Xác Thực 2 Bước</strong>
+                        <p>Tăng cường bảo mật tài khoản</p>
+                    </div>
+                    <span class="security-arrow">→</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.info-item label {
+    display: block;
+    font-size: 0.85rem;
+    color: #999;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.info-value {
+    font-size: 1.05rem;
+    color: #333;
+    font-weight: 600;
+    padding: 0.75rem 1rem;
+    background: #f8f9fa;
+    border-radius: 10px;
+    border: 1px solid #e0e0e0;
+}
+
+.achievements-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1.5rem;
+}
+
+.achievement-card {
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.05), rgba(118, 75, 162, 0.05));
+    border: 2px solid rgba(102, 126, 234, 0.2);
+    border-radius: 16px;
+    padding: 1.5rem;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.achievement-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(102, 126, 234, 0.2);
+}
+
+.achievement-icon-big {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+}
+
+.achievement-card h4 {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    color: #333;
+}
+
+.achievement-card p {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 0.75rem;
+    line-height: 1.4;
+}
+
+.achievement-date {
+    font-size: 0.8rem;
+    color: #667eea;
+    font-weight: 600;
+}
+
+.security-options {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.security-btn {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    padding: 1.25rem 1.5rem;
+    background: white;
+    border: 2px solid #e0e0e0;
+    border-radius: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: left;
+}
+
+.security-btn:hover {
+    border-color: #667eea;
+    box-shadow: 0 4px 16px rgba(102, 126, 234, 0.15);
+    transform: translateX(4px);
+}
+
+.security-icon {
+    font-size: 2rem;
+    width: 50px;
+    text-align: center;
+}
+
+.security-info {
+    flex: 1;
+}
+
+.security-info strong {
+    display: block;
+    font-size: 1.05rem;
+    color: #333;
+    margin-bottom: 0.25rem;
+}
+
+.security-info p {
+    font-size: 0.9rem;
+    color: #999;
+    margin: 0;
+}
+
+.security-arrow {
+    font-size: 1.5rem;
+    color: #667eea;
+    transition: transform 0.3s ease;
+}
+
+.security-btn:hover .security-arrow {
+    transform: translateX(5px);
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.875rem 1.75rem;
+    border-radius: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+}
+
+.btn-outline {
+    background: white;
+    color: #667eea;
+    border: 2px solid #667eea;
+}
+
+.btn-outline:hover {
+    background: #667eea;
+    color: white;
+}
+</style>

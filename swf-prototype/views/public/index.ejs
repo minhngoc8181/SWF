@@ -1,0 +1,179 @@
+<!-- Hero Section -->
+<section class="hero">
+    <div class="container">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1 class="hero-title">
+                    Học Toán Thông Minh<br>
+                    <span class="text-gradient">Chinh Phục Mọi Cuộc Thi</span>
+                </h1>
+                <p class="hero-description">
+                    Nền tảng học toán online theo chương trình Singapore, 
+                    luyện thi IKMC, AMC, IMC và các cuộc thi quốc tế. 
+                    Phù hợp cho học sinh cấp 1 và cấp 2.
+                </p>
+                <div class="hero-cta">
+                    <a href="/register" class="btn btn-primary btn-lg">
+                        Bắt Đầu Học Ngay →
+                    </a>
+                    <a href="/student/dashboard" class="btn btn-outline btn-lg">
+                        Xem Demo
+                    </a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <div class="stat-value">5,000+</div>
+                        <div class="stat-label">Học Sinh</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">200+</div>
+                        <div class="stat-label">Đề Thi</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">50+</div>
+                        <div class="stat-label">Khóa Học</div>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="hero-illustration">
+                    <div class="illustration-placeholder">
+                        <div class="math-icon">📐</div>
+                        <div class="math-icon">🎯</div>
+                        <div class="math-icon">🏆</div>
+                        <div class="math-icon">📚</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section id="features" class="features">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">Tính Năng Nổi Bật</h2>
+            <p class="section-description">
+                Tất cả những gì bạn cần để chinh phục toán học
+            </p>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">📝</div>
+                <h3 class="feature-title">Thi Thử Trực Tuyến</h3>
+                <p class="feature-description">
+                    Hơn 200 đề thi thử IKMC, AMC, IMC, TIMO và các cuộc thi quốc tế
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">📚</div>
+                <h3 class="feature-title">Khóa Học Singapore</h3>
+                <p class="feature-description">
+                    Chương trình Learning Mathematics và Math Olympiad chuẩn Singapore
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">🎮</div>
+                <h3 class="feature-title">Trò Chơi Toán Học</h3>
+                <p class="feature-description">
+                    Học qua chơi với các mini-game toán học hấp dẫn
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">📊</div>
+                <h3 class="feature-title">Theo Dõi Tiến Độ</h3>
+                <p class="feature-description">
+                    Dashboard chi tiết giúp phụ huynh và giáo viên theo dõi học sinh
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">🏆</div>
+                <h3 class="feature-title">Bảng Xếp Hạng</h3>
+                <p class="feature-description">
+                    Thi đua lành mạnh qua bảng xếp hạng và huy chương thành tích
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon" style="background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);">🤖</div>
+                <h3 class="feature-title">AI Cá Nhân Hóa</h3>
+                <p class="feature-description">
+                    Trí tuệ nhân tạo gợi ý lộ trình học phù hợp với từng em
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Competitions Section -->
+<section id="competitions" class="competitions">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">Các Cuộc Thi</h2>
+            <p class="section-description">
+                Luyện thi các cuộc thi toán học quốc tế uy tín
+            </p>
+        </div>
+
+        <div class="competitions-grid">
+            <% competitions.forEach(comp => { %>
+            <div class="competition-card">
+                <div class="competition-icon"><%= comp.icon %></div>
+                <h3><%= comp.name %></h3>
+                <p><%= comp.fullName %></p>
+                <a href="/student/tests" class="btn btn-outline">Xem Đề Thi</a>
+            </div>
+            <% }); %>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials Section -->
+<section class="testimonials">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">Học Sinh Nói Gì</h2>
+            <p class="section-description">
+                Trải nghiệm thực tế từ học sinh và phụ huynh
+            </p>
+        </div>
+
+        <div class="testimonials-grid">
+            <% testimonials.forEach(test => { %>
+            <div class="testimonial-card">
+                <div class="testimonial-rating">
+                    <% for(let i = 0; i < test.rating; i++) { %>⭐<% } %>
+                </div>
+                <p class="testimonial-text"><%= test.comment %></p>
+                <div class="testimonial-author">
+                    <div class="author-info">
+                        <div class="author-name"><%= test.name %></div>
+                        <div class="author-title"><%= test.grade %></div>
+                    </div>
+                </div>
+            </div>
+            <% }); %>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta">
+    <div class="container">
+        <div class="cta-content">
+            <h2 class="cta-title">Sẵn Sàng Bắt Đầu?</h2>
+            <p class="cta-description">
+                Tham gia cùng hàng ngàn học sinh đang học toán hiệu quả mỗi ngày
+            </p>
+            <a href="/register" class="btn btn-primary btn-lg">
+                Đăng Ký Miễn Phí Ngay →
+            </a>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,131 @@
+<div class="auth-container">
+    <div class="auth-card">
+        <div class="auth-header">
+            <a href="/" class="auth-logo">
+                <span class="brand-name">SWF Math</span>
+            </a>
+            <h1>Đăng Ký</h1>
+            <p>Tạo tài khoản để bắt đầu hành trình học toán</p>
+        </div>
+
+        <form class="auth-form" id="registerForm" action="/student/dashboard" method="get">
+            <div class="form-group">
+                <label for="name">Họ và tên</label>
+                <input 
+                    type="text" 
+                    id="name" 
+                    name="name" 
+                    placeholder="Nguyễn Văn A"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input 
+                    type="email" 
+                    id="email" 
+                    name="email" 
+                    placeholder="your@email.com"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="password">Mật khẩu</label>
+                <input 
+                    type="password" 
+                    id="password" 
+                    name="password" 
+                    placeholder="••••••••"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="confirm-password">Xác nhận mật khẩu</label>
+                <input 
+                    type="password" 
+                    id="confirm-password" 
+                    name="confirm-password" 
+                    placeholder="••••••••"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="role">Bạn là:</label>
+                <select id="role" name="role" class="form-select">
+                    <option value="student">Học Sinh</option>
+                    <option value="parent">Phụ Huynh</option>
+                    <option value="teacher">Giáo Viên</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="checkbox-label">
+                    <input type="checkbox" name="terms" required>
+                    <span>Tôi đồng ý với <a href="#">Điều khoản dịch vụ</a></span>
+                </label>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block">
+                Đăng Ký
+            </button>
+        </form>
+
+        <div class="auth-divider">
+            <span>Hoặc đăng ký bằng</span>
+        </div>
+
+        <div class="social-login">
+            <button class="btn btn-social btn-google">
+                <span class="social-icon">G</span>
+                Google
+            </button>
+            <button class="btn btn-social btn-facebook">
+                <span class="social-icon">f</span>
+                Facebook
+            </button>
+        </div>
+
+        <div class="auth-footer">
+            <p>Đã có tài khoản? <a href="/login">Đăng nhập ngay</a></p>
+        </div>
+    </div>
+
+    <div class="auth-illustration">
+        <div class="illustration-content">
+            <h2>Bắt Đầu Hành Trình Học Toán</h2>
+            <p>Tham gia miễn phí và trải nghiệm ngay hôm nay</p>
+            <div class="illustration-features">
+                <div class="feature-item">✅ 200+ đề thi luyện tập</div>
+                <div class="feature-item">✅ Khóa học chất lượng cao</div>
+                <div class="feature-item">✅ Trò chơi toán học hấp dẫn</div>
+                <div class="feature-item">✅ Theo dõi tiến độ chi tiết</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.form-select {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.3s;
+}
+.form-select:focus {
+    outline: none;
+    border-color: #4A90E2;
+}
+.illustration-features {
+    margin-top: 2rem;
+}
+.feature-item {
+    padding: 0.75rem 0;
+    font-size: 1.1rem;
+}
+</style>

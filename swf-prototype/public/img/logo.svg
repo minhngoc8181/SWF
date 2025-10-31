@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60" width="200" height="60">
+  <!-- Background -->
+  <rect width="200" height="60" fill="#4A90E2" rx="8"/>
+  
+  <!-- Icon - Book with Star -->
+  <g transform="translate(15, 15)">
+    <path d="M5 0 L25 0 L25 25 L15 22 L5 25 Z" fill="#FFD700" stroke="#FFF" stroke-width="2"/>
+    <path d="M15 8 L17 13 L22 13 L18 16 L20 21 L15 18 L10 21 L12 16 L8 13 L13 13 Z" fill="#FFF"/>
+  </g>
+  
+  <!-- Text -->
+  <text x="55" y="25" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#FFFFFF">SWF</text>
+  <text x="55" y="42" font-family="Arial, sans-serif" font-size="12" fill="#FFFFFF" opacity="0.9">Math Learning</text>
+</svg>

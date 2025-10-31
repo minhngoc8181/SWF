@@ -1,0 +1,149 @@
+<!-- Page Header -->
+<div class="page-header">
+    <h1>📝 Bài Thi & Đề Luyện Tập</h1>
+    <p>Chọn đề thi để luyện tập và nâng cao kỹ năng toán học</p>
+</div>
+
+<!-- Filter -->
+<div class="filter-section card">
+    <div class="filter-tabs">
+        <button class="filter-tab active" data-filter="all">
+            <span class="filter-icon">📚</span>
+            <span>Tất cả</span>
+        </button>
+        <% mockData.competitions.forEach(comp => { %>
+        <button class="filter-tab" data-filter="<%= comp.id %>">
+            <span class="filter-icon"><%= comp.icon || '🏆' %></span>
+            <span><%= comp.name %></span>
+        </button>
+        <% }); %>
+    </div>
+</div>
+
+<!-- Tests Grid -->
+<div class="items-grid">
+    <% tests.forEach(test => { 
+        let iconColor = '#667eea';
+        let difficultyText = 'Dễ';
+        if (test.difficulty === 'medium') {
+            iconColor = '#FF9F40';
+            difficultyText = 'Trung Bình';
+        }
+        if (test.difficulty === 'hard') {
+            iconColor = '#F5576C';
+            difficultyText = 'Khó';
+        }
+    %>
+    <div class="item-card">
+        <!-- Header: Icon + Title -->
+        <div class="item-header">
+            <div class="item-icon-wrapper" style="background: <%= iconColor %>15; border-color: <%= iconColor %>;">
+                <span style="filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));">📝</span>
+            </div>
+            <div class="item-header-content">
+                <h3 class="item-title"><%= test.name %></h3>
+                <div class="item-subtitle">
+                    <span class="item-subtitle-icon">🏆</span>
+                    <span><%= test.competition %></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Description -->
+        <p class="item-description"><%= test.description %></p>
+
+        <!-- Meta Info -->
+        <div class="item-meta">
+            <span class="meta-item">
+                <span class="icon">📊</span>
+                <%= test.questions %> câu hỏi
+            </span>
+            <span class="meta-item">
+                <span class="icon">⏱️</span>
+                <%= test.duration %> phút
+            </span>
+        </div>
+
+        <!-- Tags -->
+        <div class="item-tags">
+            <% test.topics.slice(0, 3).forEach(topic => { %>
+            <span class="item-tag"><%= topic %></span>
+            <% }); %>
+            <% if (test.topics.length > 3) { %>
+            <span class="item-tag more">+<%= test.topics.length - 3 %></span>
+            <% } %>
+        </div>
+
+        <!-- Stats Bar -->
+        <div class="item-stats-bar">
+            <div class="stat-item">
+                <span class="stat-label">Lượt thi</span>
+                <span class="stat-value"><%= test.attempts %></span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+                <span class="stat-label">Điểm TB</span>
+                <span class="stat-value"><%= test.avgScore %>%</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+                <span class="stat-label">Độ Khó</span>
+                <span class="stat-value" style="color: <%= iconColor %>; -webkit-text-fill-color: <%= iconColor %>;">
+                    <%= difficultyText %>
+                </span>
+            </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="item-actions">
+            <a href="/student/test/<%= test.id %>" class="btn btn-primary">Làm Bài</a>
+            <a href="/student/test/<%= test.id %>" class="btn btn-outline">Chi Tiết</a>
+        </div>
+    </div>
+    <% }); %>
+</div>
+
+<style>
+/* Filter Section */
+.filter-section {
+    padding: var(--spacing-lg);
+    margin-bottom: var(--spacing-xl);
+}
+
+.filter-tabs {
+    display: flex;
+    gap: var(--spacing-sm);
+    flex-wrap: wrap;
+}
+
+.filter-tab {
+    padding: var(--spacing-sm) var(--spacing-lg);
+    border: 2px solid transparent;
+    background: var(--bg-light);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    font-weight: 600;
+    color: var(--text-light);
+}
+
+.filter-tab:hover {
+    background: rgba(102, 126, 234, 0.1);
+    color: var(--primary);
+    border-color: var(--primary);
+}
+
+.filter-tab.active {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    border-color: transparent;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.filter-icon {
+    font-size: 1.1rem;
+}
+</style>

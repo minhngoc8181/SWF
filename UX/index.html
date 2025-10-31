@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SWF Math - Nền Tảng Học Toán Online</title>
+    <meta name="description" content="Học toán online theo chương trình Singapore, luyện thi IKMC, AMC, IMC và các cuộc thi toán học quốc tế">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/landing.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <div class="nav-brand">
+                    <img src="img/logo.svg" alt="SWF Math" class="logo" onerror="this.style.display='none'">
+                    <span class="brand-name">SWF Math</span>
+                </div>
+                
+                <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="#features">Tính Năng</a></li>
+                    <li><a href="#courses">Khóa Học</a></li>
+                    <li><a href="#competitions">Cuộc Thi</a></li>
+                    <li><a href="#pricing">Giá</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                </ul>
+
+                <div class="nav-actions">
+                    <a href="login.html" class="btn btn-ghost">Đăng Nhập</a>
+                    <a href="register.html" class="btn btn-primary">Đăng Ký</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1 class="hero-title">
+                        Học Toán Thông Minh<br>
+                        <span class="text-gradient">Chinh Phục Mọi Cuộc Thi</span>
+                    </h1>
+                    <p class="hero-description">
+                        Nền tảng học toán online theo chương trình Singapore, 
+                        luyện thi IKMC, AMC, IMC và các cuộc thi quốc tế. 
+                        Phù hợp cho học sinh cấp 1 và cấp 2.
+                    </p>
+                    <div class="hero-cta">
+                        <a href="register.html" class="btn btn-primary btn-lg">
+                            Bắt Đầu Học Ngay
+                            <svg class="icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </a>
+                        <a href="#demo" class="btn btn-outline btn-lg">
+                            Xem Demo
+                        </a>
+                    </div>
+                    <div class="hero-stats">
+                        <div class="stat">
+                            <div class="stat-value">5,000+</div>
+                            <div class="stat-label">Học Sinh</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">200+</div>
+                            <div class="stat-label">Đề Thi</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">50+</div>
+                            <div class="stat-label">Khóa Học</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <div class="hero-illustration">
+                        <!-- Placeholder for illustration -->
+                        <div class="illustration-placeholder">
+                            <div class="math-icon">📐</div>
+                            <div class="math-icon">🎯</div>
+                            <div class="math-icon">🏆</div>
+                            <div class="math-icon">📚</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Tính Năng Nổi Bật</h2>
+                <p class="section-description">
+                    Tất cả những gì bạn cần để chinh phục toán học
+                </p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                        📝
+                    </div>
+                    <h3 class="feature-title">Thi Thử Trực Tuyến</h3>
+                    <p class="feature-description">
+                        Hơn 200 đề thi thử IKMC, AMC, IMC, TIMO và các cuộc thi quốc tế
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                        📚
+                    </div>
+                    <h3 class="feature-title">Khóa Học Singapore</h3>
+                    <p class="feature-description">
+                        Chương trình Learning Mathematics và Math Olympiad chuẩn Singapore
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                        🎮
+                    </div>
+                    <h3 class="feature-title">Trò Chơi Toán Học</h3>
+                    <p class="feature-description">
+                        Học qua chơi với các mini-game toán học hấp dẫn
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">
+                        📊
+                    </div>
+                    <h3 class="feature-title">Theo Dõi Tiến Độ</h3>
+                    <p class="feature-description">
+                        Dashboard chi tiết giúp phụ huynh và giáo viên theo dõi học sinh
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
+                        🏆
+                    </div>
+                    <h3 class="feature-title">Bảng Xếp Hạng</h3>
+                    <p class="feature-description">
+                        Thi đấu và so tài với bạn bè trên bảng xếp hạng
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon" style="background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);">
+                        🤖
+                    </div>
+                    <h3 class="feature-title">AI Cá Nhân Hóa</h3>
+                    <p class="feature-description">
+                        Lộ trình học tập thích ứng theo năng lực từng học sinh
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Competitions Section -->
+    <section id="competitions" class="competitions">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Các Cuộc Thi</h2>
+                <p class="section-description">
+                    Luyện thi các cuộc thi toán học quốc tế uy tín
+                </p>
+            </div>
+
+            <div class="competitions-grid">
+                <div class="competition-card">
+                    <div class="competition-badge">IKMC</div>
+                    <h3>International Kangaroo Mathematics Contest</h3>
+                    <p>Cuộc thi Toán Túi Roo Quốc Tế - phổ biến nhất thế giới</p>
+                    <a href="#" class="btn btn-outline btn-sm">Xem Đề Thi</a>
+                </div>
+
+                <div class="competition-card">
+                    <div class="competition-badge">AMC</div>
+                    <h3>American Mathematics Competitions</h3>
+                    <p>Cuộc thi Toán Hoa Kỳ - chuẩn mực quốc tế</p>
+                    <a href="#" class="btn btn-outline btn-sm">Xem Đề Thi</a>
+                </div>
+
+                <div class="competition-card">
+                    <div class="competition-badge">IMC</div>
+                    <h3>International Mathematics Competition</h3>
+                    <p>Cuộc thi Toán Quốc Tế cho học sinh giỏi</p>
+                    <a href="#" class="btn btn-outline btn-sm">Xem Đề Thi</a>
+                </div>
+
+                <div class="competition-card">
+                    <div class="competition-badge">TIMO</div>
+                    <h3>Thailand International Mathematical Olympiad</h3>
+                    <p>Olympic Toán Quốc Tế Thái Lan</p>
+                    <a href="#" class="btn btn-outline btn-sm">Xem Đề Thi</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Học Sinh Nói Gì</h2>
+                <p class="section-description">
+                    Phản hồi từ học sinh và phụ huynh
+                </p>
+            </div>
+
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
+                    <p class="testimonial-text">
+                        "Con em rất thích học toán qua các trò chơi. Điểm số cải thiện rõ rệt sau 3 tháng học!"
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">👨‍👩‍👦</div>
+                        <div>
+                            <div class="author-name">Phụ Huynh Minh Anh</div>
+                            <div class="author-role">Mẹ của bé lớp 4</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
+                    <p class="testimonial-text">
+                        "Đề thi rất chuẩn và sát với đề thật. Em đã đạt Huy Chương Vàng IKMC nhờ luyện tập ở đây."
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">👦</div>
+                        <div>
+                            <div class="author-name">Nguyễn Minh Khôi</div>
+                            <div class="author-role">Học sinh lớp 6</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
+                    <p class="testimonial-text">
+                        "Giao diện thân thiện, dễ sử dụng. Tôi có thể theo dõi tiến độ của cả lớp một cách hiệu quả."
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">👩‍🏫</div>
+                        <div>
+                            <div class="author-name">Cô Lan Hương</div>
+                            <div class="author-role">Giáo viên Toán</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2 class="cta-title">Sẵn Sàng Bắt Đầu?</h2>
+                <p class="cta-description">
+                    Tham gia cùng hàng ngàn học sinh đang học toán thông minh mỗi ngày
+                </p>
+                <a href="register.html" class="btn btn-primary btn-lg">
+                    Đăng Ký Miễn Phí
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3 class="footer-title">SWF Math</h3>
+                    <p>Nền tảng học toán online hàng đầu cho học sinh cấp 1 và cấp 2</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook">📘</a>
+                        <a href="#" aria-label="YouTube">📺</a>
+                        <a href="#" aria-label="Instagram">📷</a>
+                    </div>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Sản Phẩm</h4>
+                    <ul>
+                        <li><a href="#">Khóa Học</a></li>
+                        <li><a href="#">Đề Thi</a></li>
+                        <li><a href="#">Trò Chơi</a></li>
+                        <li><a href="#">Blog</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Hỗ Trợ</h4>
+                    <ul>
+                        <li><a href="#">Trung Tâm Trợ Giúp</a></li>
+                        <li><a href="#">Liên Hệ</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Hướng Dẫn</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Pháp Lý</h4>
+                    <ul>
+                        <li><a href="#">Điều Khoản</a></li>
+                        <li><a href="#">Bảo Mật</a></li>
+                        <li><a href="#">Cookies</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 SWF Math. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

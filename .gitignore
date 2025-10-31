@@ -18,3 +18,5 @@ obj/
 TestResult*/
 .DS_Store
 Thumbs.db
+
+node_modules/
